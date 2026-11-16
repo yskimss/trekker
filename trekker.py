@@ -1,4 +1,4 @@
-# trekker.py - Pythonista 3용 트래킹 + 고도/상승 동적 전환 + GPX 배지 클릭 이동 + 기록 시 진행방향 자동회전 + 나침반/십자선 3초 표시 + 거리 척도 + GPX 고도 프로파일 + 기록 중 5초 간격 진행방향 회전 + 회전 방향 보정 + GPS 노이즈 제거 (v4.12)
+# trekker.py - Pythonista 3용 트래킹 + 고도/상승 동적 전환 + GPX 배지 클릭 이동 + 기록 시 진행방향 자동회전 + 나침반/십자선 3초 표시 + 거리 척도 + GPX 고도 프로파일 + 기록 중 5초 간격 진행방향 회전 + 회전 방향 보정 + GPS 노이즈 제거/곡선 보정 + 상단 방위 바 + 상단 UI 높이 축소 + 고도 그래프 위치 점 (v4.20)
 import ui, location, math, os, time, datetime, json, urllib.request, threading, sys, socket
 import dialogs, console, sound
 import http.server
@@ -37,10 +37,14 @@ TRACK_HEADING_SEC = 5   # s, 기록 중 진행 방향(지도 회전 기준)을 �
 TRACK_HEADING_DIST = 10 # m, 현재 위치와 이만큼 이전 위치를 이은 선으로 방향 계산
 # ---- GPS 노이즈 제거 설정
 START_MAX_ACCURACY = 20 # m, 기록 첫 점은 이보다 정확할 때만 채택 (MAX_ACCURACY는 이후 점에 적용)
-MAX_SPEED_MPS = 10.0    # m/s, 이보다 빠르게 '튀는' 좌표는 GPS 오차로 보고 제외 (36km/h)
+FAST_SPEED_MPS = 10.0   # m/s, 1초에 10m 이상 같은 '단시간 장거리 이동'은 GPS 튐으로 보고 곡선 보정
+SPIKE_GAIN = 0.1        # 튐으로 보인 좌표를 반영하는 비율 (작을수록 예측 곡선을 더 따라감)
 JUMP_CONFIRM = 3        # 튐으로 보였던 좌표가 연속 N회 비슷한 곳이면 실제 이동으로 인정
-JUMP_LINK_M = 50        # m, 위 연속 판정 시 직전 후보 좌표와의 최대 거리
+JUMP_LINK_M = 30        # m, 위 연속 판정 시 직전 후보 좌표와의 최대 거리
 KF_PROCESS_NOISE = 3.0  # m/s, 칼만 필터 프로세스 노이즈 (클수록 반응 빠름, 작을수록 부드러움)
+CURVE_SMOOTH = 0.5      # 0~1, 기록된 점을 앞뒤 점의 중간 쪽으로 당기는 정도 (곡선화 강도)
+CURVE_SMOOTH_FAST = 0.85  # 단시간 장거리 구간에 쓰는 곡선화 강도
+STILL_SPEED_MPS = 0.25  # m/s, GPS 속도가 이보다 낮으면 정지로 보고 좌표를 갱신하지 않음
 SERVER_PORT = 0
 TOP_INSET = 44          # 상태바(노치) 높이
 
@@ -77,7 +81,7 @@ def dlog(msg):
     except Exception as e:
         print("Log error:", e)
 
-dlog("=== 트레커 앱 시작됨 (v4.12) ===")
+dlog("=== 트레커 앱 시작됨 (v4.20) ===")
 
 def enable_fault():
     try:
@@ -110,7 +114,7 @@ MAP_HTML = """<!DOCTYPE html><html><head>
     -webkit-tap-highlight-color: transparent;
   }
   #layer-container {
-    position: absolute; top: 12px; left: 12px; right: 12px; z-index: 99999;
+    position: absolute; top: 29px; left: 12px; right: 12px; z-index: 99999;
     display: flex; flex-direction: column; align-items: flex-end;
     touch-action: manipulation; pointer-events: none;
   }
@@ -119,26 +123,35 @@ MAP_HTML = """<!DOCTYPE html><html><head>
   #top-right-group {
     display: flex; align-items: center; gap: 8px; width: 100%;
   }
-  /* GPX 정보 영역: [고도 프로파일 30%][GPX명 70%] (지도 선택 버튼 왼쪽) */
+  /* GPX 정보 영역: [고도 프로파일 40%][GPX명 60%] (지도 선택 버튼 왼쪽) */
   #gpx-info {
     flex: 1 1 0; min-width: 0; display: flex; justify-content: flex-end;
     align-items: center; gap: 8px; pointer-events: none;
   }
   #gpx-elev {
-    display: none; width: calc(30% - 4px); height: 38px; box-sizing: border-box;
+    display: none; position: relative; width: calc(40% - 4px); height: 38px; box-sizing: border-box;
     padding: 4px 6px; background: rgba(30,30,30,0.95);
     border: 1px solid rgba(255,255,255,0.3); border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.5);
   }
   #gpx-elev.show { display: block; }
   #gpx-elev svg { display: block; }
+  #elev-svg { position: absolute; left: 6px; right: 6px; top: 4px; bottom: 4px; }
+  #elev-svg svg { width: 100%; height: 100%; }
+  /* 십자선(지도 중심)이 GPX선 근처일 때 고도 그래프 위 해당 위치를 가리키는 점 */
+  #elev-cursor { position: absolute; left: 6px; right: 6px; top: 4px; bottom: 4px; display: none; pointer-events: none; }
+  #elev-dot {
+    position: absolute; width: 10px; height: 10px; margin: -7px 0 0 -7px;
+    box-sizing: content-box; border-radius: 50%; background: #ffffff; border: 2px solid #0a84ff;
+    box-shadow: 0 0 0 2px rgba(10,132,255,0.35), 0 1px 4px rgba(0,0,0,0.7);
+  }
   .elev-none { display: block; text-align: center; color: #8e8e93; font-size: 11px; line-height: 28px; }
   
   #gpx-name-badge {
     background: rgba(30,30,30,0.95); color: #0a84ff; border: 1px solid rgba(255,255,255,0.3);
     padding: 0 8px; border-radius: 8px; font-size: 14px; font-weight: bold;
     box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-    width: calc(70% - 4px); height: 38px; line-height: 36px; box-sizing: border-box;
+    width: calc(60% - 4px); height: 38px; line-height: 36px; box-sizing: border-box;
     text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     display: none;
     cursor: pointer; touch-action: manipulation; -webkit-appearance: none;
@@ -326,7 +339,10 @@ MAP_HTML = """<!DOCTYPE html><html><head>
 <div id="layer-container">
   <div id="top-right-group">
     <div id="gpx-info">
-      <div id="gpx-elev"></div>
+      <div id="gpx-elev">
+        <div id="elev-svg"></div>
+        <div id="elev-cursor"><div id="elev-dot"></div></div>
+      </div>
       <div id="gpx-name-badge" ontouchend="onGpxBadgeClick(event)" onclick="onGpxBadgeClick(event)" title=""></div>
     </div>
     <button id="layer-toggle-btn" ontouchend="toggleLayerBox(event)" onclick="toggleLayerBox(event)">🗺️ 지도 선택</button>
@@ -574,6 +590,7 @@ function onCompassClick(e) {
   var now = Date.now();
   if (now - lastCompassTouch < 300) return;
   lastCompassTouch = now;
+  quietUntil = now + 600;   // 나침반 버튼으로 정북 복귀할 때도 중앙 나침반 생략
 
   var inBounds = false;
   if (lastLat && lastLon) {
@@ -622,6 +639,7 @@ updateScale();
 
 // 기록 시작/재개 시 진행 방향 up 자동 회전 켜기, 종료 시 정북 복귀
 var autoSession = false;          // 시작 버튼으로 자동 회전 중인 상태
+var quietUntil = 0;               // 이 시각 전까지는 프로그램 회전에도 중앙 나침반을 띄우지 않음
 var fingerDown = false, fingerUntil = 0;
 
 // 두 손가락이 닿아 있는 동안(또는 직후)만 '손가락 회전'으로 간주
@@ -713,8 +731,31 @@ function headToBearing(h) {
   return (((HEAD_SIGN * h) % 360) + 360) % 360;
 }
 
+// 지도 화면 위쪽이 가리키는 방위를 파이썬(상단 방위 바)으로 전송
+var lastUpSend = 0, upTimer = null;
+function reportUp() {
+  var up = (((360 - mapCW()) % 360) + 360) % 360;
+  try {
+    fetch('http://127.0.0.1:' + PORT + '/up?d=' + up.toFixed(1)).catch(function() {});
+  } catch (err) {}
+}
+function reportUpThrottled() {
+  var now = Date.now();
+  if (now - lastUpSend >= 100) {
+    lastUpSend = now;
+    reportUp();
+  } else if (!upTimer) {
+    upTimer = setTimeout(function() {
+      upTimer = null;
+      lastUpSend = Date.now();
+      reportUp();
+    }, 100 - (now - lastUpSend));
+  }
+}
+
 map.on('rotate', function() {
   if (rotateDetecting) return;
+  reportUpThrottled();
   var bearing = map.getBearing();
   var dialGroup = document.getElementById('dial-group');
   if (dialGroup) {
@@ -722,11 +763,12 @@ map.on('rotate', function() {
   }
   updateHeadingAngle();
   updateScreenCompass();
-  // 자동 회전(기록) 중에는 손가락으로 회전할 때만 나침반 표시
-  if (!autoSession || isFingerRotating()) {
+  // 자동 회전(기록 중 / 부채꼴 방향 표시 중)에는 손가락으로 회전할 때만 중앙 나침반 표시
+  if (isFingerRotating() || (!autoSession && !headingMode && Date.now() >= quietUntil)) {
     showScreenCompassTemporarily();
   }
 });
+reportUp();
 
 var centerFetchTimer = null;
 map.on('moveend', function() {
@@ -835,6 +877,7 @@ function recenterMap(lat, lon) {
 
 function setGpxRoute(pts, displayName) {
   gpxLine.setLatLngs(pts);
+  setGpxData(pts);
   extraLayer.clearLayers();
   
   var badge = document.getElementById('gpx-name-badge');
@@ -857,12 +900,120 @@ function setGpxRoute(pts, displayName) {
   }
 }
 
+// ---- 지도 중심(십자선)이 GPX선 근처일 때 고도 그래프에 위치 점 표시
+var gpxPts = [], gpxCum = [], gpxTotal = 0;
+var projZoom = null, projX = [], projY = [];
+var elevProf = null, elevMin = 0, elevSpan = 0, elevTotal = 1;
+var ELEV_NEAR_PX = 24;   // 화면 픽셀 기준 '인근' 범위
+
+function havJs(la1, lo1, la2, lo2) {
+  var R = 6371000, r = Math.PI / 180;
+  var dp = (la2 - la1) * r, dl = (lo2 - lo1) * r;
+  var h = Math.sin(dp / 2) * Math.sin(dp / 2) +
+          Math.cos(la1 * r) * Math.cos(la2 * r) * Math.sin(dl / 2) * Math.sin(dl / 2);
+  return 2 * R * Math.asin(Math.min(1, Math.sqrt(h)));
+}
+
+function setGpxData(pts) {
+  gpxPts = pts || [];
+  gpxCum = [0];
+  for (var i = 1; i < gpxPts.length; i++) {
+    gpxCum.push(gpxCum[i - 1] + havJs(gpxPts[i - 1][0], gpxPts[i - 1][1], gpxPts[i][0], gpxPts[i][1]));
+  }
+  gpxTotal = gpxPts.length ? gpxCum[gpxCum.length - 1] : 0;
+  projZoom = null;
+  if (!gpxPts.length) elevProf = null;
+  updateElevCursor();
+}
+
+function ensureProj() {
+  var z = map.getZoom();
+  if (projZoom === z && projX.length === gpxPts.length) return z;
+  projX = []; projY = [];
+  for (var i = 0; i < gpxPts.length; i++) {
+    var p = map.project([gpxPts[i][0], gpxPts[i][1]], z);
+    projX.push(p.x); projY.push(p.y);
+  }
+  projZoom = z;
+  return z;
+}
+
+function elevAt(d) {
+  var n = elevProf.length;
+  if (d <= elevProf[0][0]) return elevProf[0][1];
+  if (d >= elevProf[n - 1][0]) return elevProf[n - 1][1];
+  var lo = 0, hi = n - 1;
+  while (hi - lo > 1) {
+    var mid = (lo + hi) >> 1;
+    if (elevProf[mid][0] <= d) lo = mid; else hi = mid;
+  }
+  var d0 = elevProf[lo][0], d1 = elevProf[hi][0];
+  var t = d1 > d0 ? (d - d0) / (d1 - d0) : 0;
+  return elevProf[lo][1] + t * (elevProf[hi][1] - elevProf[lo][1]);
+}
+
+function updateElevCursor() {
+  var cur = document.getElementById('elev-cursor');
+  if (!cur) return;
+  var box = document.getElementById('gpx-elev');
+  if (gpxPts.length < 2 || !elevProf || elevProf.length < 2 || !(gpxTotal > 0) ||
+      !box || !box.classList.contains('show')) {
+    cur.style.display = 'none';
+    return;
+  }
+  var z = ensureProj();
+  var c = map.project(map.getCenter(), z);
+  var TH = ELEV_NEAR_PX, best = Infinity, bi = -1, bu = 0;
+  for (var i = 0; i < gpxPts.length - 1; i++) {
+    var ax = projX[i], ay = projY[i], bx = projX[i + 1], by = projY[i + 1];
+    if (Math.max(ax, bx) < c.x - TH || Math.min(ax, bx) > c.x + TH ||
+        Math.max(ay, by) < c.y - TH || Math.min(ay, by) > c.y + TH) continue;
+    var dx = bx - ax, dy = by - ay, len2 = dx * dx + dy * dy;
+    var u = len2 > 0 ? ((c.x - ax) * dx + (c.y - ay) * dy) / len2 : 0;
+    u = Math.max(0, Math.min(1, u));
+    var qx = ax + u * dx - c.x, qy = ay + u * dy - c.y;
+    var d2 = qx * qx + qy * qy;
+    if (d2 < best) { best = d2; bi = i; bu = u; }
+  }
+  if (bi < 0 || best > TH * TH) {   // 완전히 벗어나면 숨김
+    cur.style.display = 'none';
+    return;
+  }
+  var dist = gpxCum[bi] + bu * (gpxCum[bi + 1] - gpxCum[bi]);
+  var frac = Math.max(0, Math.min(1, dist / gpxTotal));
+  var e = elevAt(frac * elevTotal);
+  var H = 30, padT = 3, padB = 2;
+  var y = elevSpan < 1 ? H / 2 : (H - padB) - (e - elevMin) / elevSpan * (H - padT - padB);
+  var dot = document.getElementById('elev-dot');
+  dot.style.left = (frac * 100).toFixed(2) + '%';
+  dot.style.top = (y / H * 100).toFixed(2) + '%';
+  cur.style.display = 'block';
+}
+
+var lastElevUpd = 0, elevUpdTimer = null;
+function updateElevCursorThrottled() {
+  var now = Date.now();
+  if (now - lastElevUpd >= 60) {
+    lastElevUpd = now;
+    updateElevCursor();
+  } else if (!elevUpdTimer) {
+    elevUpdTimer = setTimeout(function() {
+      elevUpdTimer = null;
+      lastElevUpd = Date.now();
+      updateElevCursor();
+    }, 60 - (now - lastElevUpd));
+  }
+}
+map.on('move zoomend moveend', updateElevCursorThrottled);
+
 // GPX 고도 프로파일 (prof: [[누적거리m, 고도m], ...])
 function setElevationProfile(prof) {
-  var box = document.getElementById('gpx-elev');
+  var box = document.getElementById('elev-svg');
   if (!box) return;
   if (!prof || prof.length < 2) {
+    elevProf = null;
     box.innerHTML = '<span class="elev-none">고도 정보 없음</span>';
+    updateElevCursor();
     return;
   }
   var minE = Infinity, maxE = -Infinity;
@@ -887,6 +1038,11 @@ function setElevationProfile(prof) {
     + '<path d="' + area + '" fill="url(#elevg)"/>'
     + '<path d="' + d + '" fill="none" stroke="#e8643c" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>'
     + '</svg>';
+  elevProf = prof;
+  elevMin = minE;
+  elevSpan = span;
+  elevTotal = total;
+  updateElevCursor();
 }
 
 var lastBadgeTouch = 0;
@@ -895,6 +1051,7 @@ function onGpxBadgeClick(e) {
   var now = Date.now();
   if (now - lastBadgeTouch < 300) return;
   lastBadgeTouch = now;
+  quietUntil = now + 600;
 
   var latLngs = gpxLine.getLatLngs();
   if (latLngs.length > 0) {
@@ -1080,10 +1237,15 @@ function hideDifficulty() {
 
 function clearGpxRoute() {
   gpxLine.setLatLngs([]);
+  setGpxData([]);
   extraLayer.clearLayers();
   hideDifficulty();
   var elevBox = document.getElementById('gpx-elev');
-  if (elevBox) { elevBox.classList.remove('show'); elevBox.innerHTML = ''; }
+  if (elevBox) {
+    elevBox.classList.remove('show');
+    var sv = document.getElementById('elev-svg');
+    if (sv) sv.innerHTML = '';
+  }
   var badge = document.getElementById('gpx-name-badge');
   badge.classList.remove('show');
   badge.innerText = '';
@@ -1187,7 +1349,7 @@ class MapHandler(http.server.BaseHTTPRequestHandler):
                             try:
                                 req = urllib.request.Request(
                                     url, 
-                                    headers={'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) Trekker/4.12'}
+                                    headers={'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) Trekker/4.20'}
                                 )
                                 with urllib.request.urlopen(req, timeout=5) as response:
                                     tile_data = response.read()
@@ -1235,6 +1397,16 @@ class MapHandler(http.server.BaseHTTPRequestHandler):
                 except Exception:
                     body = json.dumps({'ok': False})
                 self._send(body, 'application/json')
+            elif u.path == '/up':
+                # 지도 화면 위쪽이 가리키는 방위(진북 기준 0~360) -> 상단 방위 바 갱신
+                q = urllib.parse.parse_qs(u.query)
+                try:
+                    up_d = float(q.get('d', ['0'])[0])
+                    if app_instance is not None:
+                        run_on_main(lambda: app_instance.compass_bar.set_dir(up_d))
+                except Exception:
+                    pass
+                self._send('ok', 'text/plain')
             elif u.path == '/hmode':
                 q = urllib.parse.parse_qs(u.query)
                 HEADING_STATE['on'] = (q.get('on', ['0'])[0] == '1')
@@ -1455,6 +1627,8 @@ class Tracker:
         self.kf_lon = None
         self.kf_var = 0.0
         self.kf_ts = 0.0
+        self.kf_vn = 0.0   # 추정 속도 (북쪽 m/s)
+        self.kf_ve = 0.0   # 추정 속도 (동쪽 m/s)
         self.jump_cnt = 0
         self.jump_last = None
         self.last_meas = None
@@ -1491,24 +1665,32 @@ class Tracker:
             e += time.time() - self.seg_start
         return e
 
-    # ---- GPS 노이즈 제거: 정확도 필터 -> 튐 제거 -> 칼만 필터 -> 정확도 비례 최소 이동거리
+    # ---- GPS 노이즈 제거
+    #  1) 정확도 필터  2) 단시간 장거리 이동은 예측 곡선 쪽으로 보정  3) 칼만 필터(속도 예측 포함)
+    #  4) 정확도 비례 최소 이동거리  5) 기록된 점 곡선화(앞뒤 점 평균)
     def _kf_reset(self, lat, lon, acc, now):
         self.kf_lat, self.kf_lon = lat, lon
         self.kf_var = acc * acc
         self.kf_ts = now
+        self.kf_vn = self.kf_ve = 0.0
         self.jump_cnt = 0
         self.jump_last = None
 
     def _kf_update(self, lat, lon, acc, now):
-        """측정 좌표를 필터에 반영한다. 비정상적으로 튀는 값이면 False."""
+        """측정 좌표를 필터에 반영한다. 반영된 (보정) 위치는 kf_lat/kf_lon."""
         if self.kf_lat is None:
             self._kf_reset(lat, lon, acc, now)
             return True
 
         dt = max(now - self.kf_ts, 0.0)
-        d = hav(self.kf_lat, self.kf_lon, lat, lon)
-        if d > MAX_SPEED_MPS * max(dt, 1.0) + acc:
-            # 비정상적으로 빠른 이동 -> 일단 제외하고 후보로만 보관
+        old_lat, old_lon = self.kf_lat, self.kf_lon
+        m_lat = 111320.0
+        m_lon = 111320.0 * math.cos(math.radians(old_lat))
+
+        # 단시간 장거리 이동(예: 1초에 10m 이상) 여부
+        d_prev = hav(old_lat, old_lon, lat, lon)
+        spike = d_prev > FAST_SPEED_MPS * max(dt, 1.0) + acc * 0.5
+        if spike:
             if self.jump_last is not None and hav(self.jump_last[0], self.jump_last[1], lat, lon) <= JUMP_LINK_M:
                 self.jump_cnt += 1
             else:
@@ -1516,20 +1698,38 @@ class Tracker:
             self.jump_last = (lat, lon)
             if self.jump_cnt >= JUMP_CONFIRM:
                 # 연속해서 같은 곳이면 진짜 이동(터널 통과, 차량 등)으로 보고 필터 재시작
-                dlog("GPS 큰 이동 확정 (%.0fm), 필터 재시작" % d)
+                dlog("GPS 큰 이동 확정 (%.0fm), 필터 재시작" % d_prev)
                 self._kf_reset(lat, lon, acc, now)
                 return True
-            return False
+        else:
+            self.jump_cnt = 0
+            self.jump_last = None
 
-        self.jump_cnt = 0
-        self.jump_last = None
-        # 칼만 필터: 시간이 지날수록 불확실성 증가, 정확도(acc)가 나쁠수록 측정값 반영 비중 감소
+        # 예측: 직전 속도로 이동 -> 경로가 휘어도 곡선을 따라감
+        pdt = min(dt, 3.0)
+        self.kf_lat += self.kf_vn * pdt / m_lat
+        self.kf_lon += self.kf_ve * pdt / m_lon
         self.kf_var += dt * KF_PROCESS_NOISE * KF_PROCESS_NOISE
+
+        # 보정: 정확도가 나쁠수록 측정값 반영 비중 감소, 튐이면 예측 곡선 쪽을 거의 그대로 유지
         k = self.kf_var / (self.kf_var + acc * acc)
+        if spike:
+            k = min(k, SPIKE_GAIN)
         self.kf_lat += k * (lat - self.kf_lat)
         self.kf_lon += k * (lon - self.kf_lon)
         self.kf_var = (1.0 - k) * self.kf_var
         self.kf_ts = now
+
+        # 속도 추정 갱신 (튐 구간은 속도에 반영하지 않음)
+        if not spike and dt >= 0.5:
+            vn = (self.kf_lat - old_lat) * m_lat / dt
+            ve = (self.kf_lon - old_lon) * m_lon / dt
+            self.kf_vn = 0.8 * self.kf_vn + 0.2 * vn
+            self.kf_ve = 0.8 * self.kf_ve + 0.2 * ve
+            sp = math.hypot(self.kf_vn, self.kf_ve)
+            if sp > 4.0:
+                self.kf_vn *= 4.0 / sp
+                self.kf_ve *= 4.0 / sp
         return True
 
     def filtered_pos(self, lat, lon):
@@ -1538,7 +1738,26 @@ class Tracker:
             return self.kf_lat, self.kf_lon
         return lat, lon
 
-    def add_point(self, lat, lon, alt, acc=10.0):
+    def _smooth_prev(self):
+        """방금 추가된 점 직전의 점을 앞뒤 점의 중간 쪽으로 당겨 곡선화 (뾰족한 튐 제거)."""
+        pts = self.points
+        if len(pts) < 3:
+            return
+        a, m, b = pts[-3], pts[-2], pts[-1]
+        seg1 = hav(a['lat'], a['lon'], m['lat'], m['lon'])
+        seg2 = hav(m['lat'], m['lon'], b['lat'], b['lon'])
+        sp1 = seg1 / max(m['t'] - a['t'], 1.0)
+        sp2 = seg2 / max(b['t'] - m['t'], 1.0)
+        w = CURVE_SMOOTH_FAST if max(sp1, sp2) > FAST_SPEED_MPS else CURVE_SMOOTH
+        tlat = (a['lat'] + b['lat']) / 2.0
+        tlon = (a['lon'] + b['lon']) / 2.0
+        m['lat'] += w * (tlat - m['lat'])
+        m['lon'] += w * (tlon - m['lon'])
+        new1 = hav(a['lat'], a['lon'], m['lat'], m['lon'])
+        new2 = hav(m['lat'], m['lon'], b['lat'], b['lon'])
+        self.distance += (new1 + new2) - (seg1 + seg2)
+
+    def add_point(self, lat, lon, alt, acc=10.0, gps_speed=None):
         now = time.time()
         acc = max(float(acc), 3.0)
 
@@ -1548,6 +1767,10 @@ class Tracker:
             return False
         self.last_meas = meas
 
+        # GPS 속도가 거의 0이면 정지 상태: 제자리 흔들림을 기록하지 않음
+        if self.points and gps_speed is not None and 0 <= gps_speed < STILL_SPEED_MPS:
+            return False
+
         if not self._kf_update(lat, lon, acc, now):
             return False
         flat, flon = self.kf_lat, self.kf_lon
@@ -1556,7 +1779,7 @@ class Tracker:
             q = self.points[-1]
             d = hav(q['lat'], q['lon'], flat, flon)
             # 정확도가 나쁠수록 더 많이 움직여야 이동으로 인정 (제자리 GPS 흔들림 제거)
-            if d < max(MIN_STEP, min(acc * 0.5, 15.0)):
+            if d < max(MIN_STEP, min(acc * 0.6, 15.0)):
                 return False
             self.distance += d
             dt = now - q['t']
@@ -1569,6 +1792,7 @@ class Tracker:
                 self.gain += alt - self.ref_alt
             self.ref_alt = alt
         self.points.append({'lat': flat, 'lon': flon, 'alt': alt, 't': now})
+        self._smooth_prev()
         return True
 
     def check_deviation(self, lat, lon, threshold=20.0):
@@ -1580,6 +1804,79 @@ class Tracker:
             if d < min_d:
                 min_d = d
         return min_d > threshold
+
+
+class CompassBar(ui.View):
+    """지도 맨 위에 겹쳐 표시하는 투명 방위 바: 지도 화면 위쪽이 가리키는 방위를 중앙 기준으로 표시."""
+    SPAN = 120.0   # 화면에 보이는 각도 범위 (중앙 기준 좌우 60도)
+    NAMES = {0: 'N', 45: 'NE', 90: 'E', 135: 'SE', 180: 'S', 225: 'SW', 270: 'W', 315: 'NW'}
+
+    def __init__(self):
+        self.background_color = (0, 0, 0, 0)
+        self.touch_enabled = False
+        self.up_dir = 0.0
+
+    def set_dir(self, d):
+        self.up_dir = float(d) % 360.0
+        self.set_needs_display()
+
+    def draw(self):
+        try:
+            w, h = self.width, self.height
+            if w <= 0 or h <= 0:
+                return
+            ppd = w / self.SPAN
+            cx = w / 2.0
+            half = self.SPAN / 2.0 + 6
+            halo = (1, 1, 1, 0.9)
+
+            for a in range(0, 360, 5):
+                off = ((a - self.up_dir + 540.0) % 360.0) - 180.0
+                if abs(off) > half:
+                    continue
+                x = cx + off * ppd
+                if a % 45 == 0:
+                    name = self.NAMES[a]
+                    if name == 'N':
+                        font, color = ('<System-Bold>', 16), (0.85, 0.1, 0.1, 1.0)
+                    else:
+                        font, color = ('<System-Bold>', 14), (0, 0, 0, 1.0)
+                    tw, th = ui.measure_string(name, font=font)
+                    y = (h - th) / 2.0
+                    # 투명 배경에서도 잘 보이도록 흰 테두리 후 글자
+                    for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, 1), (-1, 1), (1, -1)):
+                        ui.draw_string(name, rect=(x - 20 + dx, y + dy, 40, th), font=font,
+                                       color=halo, alignment=ui.ALIGN_CENTER)
+                    ui.draw_string(name, rect=(x - 20, y, 40, th), font=font,
+                                   color=color, alignment=ui.ALIGN_CENTER)
+                else:
+                    if abs(((a + 22.5) % 45.0) - 22.5) < 6:
+                        continue   # 글자와 겹치는 눈금은 생략
+                    major = (a % 15 == 0)
+                    th = h * (0.42 if major else 0.28)
+                    ty = (h - th) / 2.0
+                    ui.set_color(halo)
+                    ui.Path.rect(x - 1.5, ty - 1, 3, th + 2).fill()
+                    ui.set_color((0, 0, 0, 1.0 if major else 0.8))
+                    ui.Path.rect(x - 0.75, ty, 1.5, th).fill()
+
+            # 중앙 표시 삼각형 (현재 위쪽 방향): 흰 테두리 + 검은색
+            ui.set_color(halo)
+            t1 = ui.Path()
+            t1.move_to(cx - 7, 0)
+            t1.line_to(cx + 7, 0)
+            t1.line_to(cx, 9)
+            t1.close()
+            t1.fill()
+            ui.set_color((0, 0, 0, 1.0))
+            t2 = ui.Path()
+            t2.move_to(cx - 5, 0)
+            t2.line_to(cx + 5, 0)
+            t2.line_to(cx, 6.5)
+            t2.close()
+            t2.fill()
+        except Exception as e:
+            dlog("방위 바 그리기 오류: %s" % e)
 
 
 app_instance = None
@@ -1662,7 +1959,11 @@ class TrekApp(ui.View):
         self.web = ui.WebView()
         self.web.corner_radius = 10
         self.add_subview(self.web)
-        
+
+        # 지도 영역 맨 위에 겹쳐 표시하는 방위 바 (웹뷰보다 위에 와야 하므로 웹뷰 다음에 추가)
+        self.compass_bar = CompassBar()
+        self.add_subview(self.compass_bar)
+
         self.start_server()
 
         self.status = ui.Label(text='GPS 대기 중...', text_color='#8e8e93',
@@ -1795,7 +2096,7 @@ class TrekApp(ui.View):
             return
 
         top = TOP_INSET
-        bar_h = 48
+        bar_h = 40          # 제목줄 높이 (48 -> 40)
         self.top_bar.frame = (0, top, w, bar_h)
         self.btn_close.frame = (2, 0, 44, bar_h)
 
@@ -1843,20 +2144,23 @@ class TrekApp(ui.View):
 
         m, gap = 8, 6
         sw = (w - 2 * m - 3 * gap) / 4
-        sh = 66
+        sh = 56             # 통계 박스 높이 (66 -> 56)
+        vgap = 4            # 위아래 요소 사이 세로 간격 (8/6 -> 4)
         
         for i, key in enumerate(('dist', 'time', 'speed', 'gain_ele')):
             box, t, v = self.stat_boxes[key]
-            box.frame = (m + i * (sw + gap), top + bar_h + m, sw, sh)
-            t.frame = (0, 5, sw, 20)
-            v.frame = (0, 28, sw, 32)
+            box.frame = (m + i * (sw + gap), top + bar_h + vgap, sw, sh)
+            t.frame = (0, 3, sw, 18)
+            v.frame = (0, 21, sw, 30)
 
-        y = top + bar_h + m + sh + gap
+        y = top + bar_h + vgap + sh + vgap
+        cb_h = 26
         btn_h = 52
         by = h - btn_h - m
         
         self.status.frame = (m, by - 28, w - 2 * m, 24)
         self.web.frame = (m, y, w - 2 * m, by - 32 - gap - y)
+        self.compass_bar.frame = (m, y, w - 2 * m, cb_h)   # 지도 맨 위에 겹침
         
         bw = (w - 2 * m - gap) / 2
         self.btn_main.frame = (m, by, bw, btn_h)
@@ -2235,7 +2539,7 @@ class TrekApp(ui.View):
             if acc > max_acc:
                 self.status.text = 'GPS 신호 향상 대기중 (±%dm)' % acc
             else:
-                T.add_point(lat, lon, alt, acc)
+                T.add_point(lat, lon, alt, acc, speed if (speed is not None and speed >= 0) else None)
                 plat, plon = T.filtered_pos(lat, lon)
                 if not T.check_deviation(plat, plon, threshold=20.0):
                     self.status.text = '기록 중 (±%dm)' % acc
