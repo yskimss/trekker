@@ -1,4 +1,4 @@
-# trekker.py - Pythonista 3용 트래킹 + 고도/상승 동적 전환 + GPX 배지 클릭 이동 + 기록 시 진행방향 자동회전 + 나침반/십자선 2초 표시 + 거리 척도 + GPX 고도 프로파일 + 기록 중 5초 간격 진행방향 회전 + 회전 방향 보정 + GPS 노이즈 제거/곡선 보정 + 상단 방위 바 + 상단 UI 높이 축소 + 고도 그래프 위치 점 + 방위 바 갱신 안정화 + 십자선 이동 시 표시/굵게 + 기본 지도 Topo(온라인) + 고도 상세 패널 + 기록 중 30초 생존 신호음 + HTTP 서버 오류 방어 + 지도 캐시 개선/오프라인 미리받기 + 클립보드 삭제 & 2초 숨김 & 툴팁 1.5배 띄우기 + 날씨 조회 안정화/날씨 로그 + 방위 바 양끝 흐림 + 풍향/풍속 표시 및 상세 정보창 + 날씨 1분 갱신 + 잠금 중 기록/진행방향만 수행 + 지도 터치 십자선/잠금 중 절전 + 종료 시 지도 회전/원형 나침반 없음 + 기록 중 경량 모드(진행 방향 외 갱신 지연) + 빠른 회전 시 다운 방지 + 잠금 중 부채꼴 방향 UI 숨김 + GPX 따라가기 시뮬레이션(배속) + 상단 메뉴 '저장' 제거 + 시뮬레이션 중 거리·시간 표시 + 초기화 시 시뮬레이션 거리·시간 초기화 + 시뮬/기록 동시 실행 방지 + 토스트 잘림 수정, 시뮬 나침반=진행방향 위로 + 시뮬 나침반 해제 시 지도 방향 유지 + 시뮬 중 나침반 배율 유지 + 시뮬 중 상단 고도70:GPX명30 비율 + 풍향 화살표 풍속별 색상 + 좌표 아래 주소 표시 + 시뮬/나침반 회전 다운 방지 + 시뮬 속도 표시, 초기화 시 기록 경로 삭제 + 시뮬 종료 시 종료 위치 유지 + Esri 위성 지도에서 원형 나침반 흰색 + 터치 시에만 주소 5초 표시 + 시뮬 중 로드/초기화 비활성화 + 시뮬 속도 '-' 표시 + 시뮬 시작/종료 메세지 삭제 + 시뮬 중 고도 상세창 그래프에 시뮬 위치 점 표시 + 고도/날씨 상세창 반투명 + 상세창 농도 상향 + 시뮬 시작/종료 알림음 + 기록 경로 선 자홍색+흰 테두리 + 고도 상세창에 작은 고도 위치 점 표시 + 시뮬 역방향/위치 점프 + 십자선 위치부터 시뮬 시작 메뉴 + 시뮬 메뉴 구분선 + 잠금 중 위치 반영 5초 간격 + 종료·저장 결과를 상태 줄에 3초 표시 + 알림(토스트) 제거, 모든 메시지를 상태 줄에 3초 표시 + 시뮬 중 고도 상세창은 시뮬 위치만 표시 + 지도 서버 재접속·타일 자동 재요청 (v4.70)
+# trekker.py - Pythonista 3용 트래킹 + 고도/상승 동적 전환 + GPX 배지 클릭 이동 + 기록 시 진행방향 자동회전 + 나침반/십자선 2초 표시 + 거리 척도 + GPX 고도 프로파일 + 기록 중 5초 간격 진행방향 회전 + 회전 방향 보정 + GPS 노이즈 제거/곡선 보정 + 상단 방위 바 + 상단 UI 높이 축소 + 고도 그래프 위치 점 + 방위 바 갱신 안정화 + 십자선 이동 시 표시/굵게 + 기본 지도 Topo(온라인) + 고도 상세 패널 + 기록 중 30초 생존 신호음 + HTTP 서버 오류 방어 + 지도 캐시 개선/오프라인 미리받기 + 클립보드 삭제 & 2초 숨김 & 툴팁 1.5배 띄우기 + 날씨 조회 안정화/날씨 로그 + 방위 바 양끝 흐림 + 풍향/풍속 표시 및 상세 정보창 + 날씨 1분 갱신 + 잠금 중 기록/진행방향만 수행 + 지도 터치 십자선/잠금 중 절전 + 종료 시 지도 회전/원형 나침반 없음 + 기록 중 경량 모드(진행 방향 외 갱신 지연) + 빠른 회전 시 다운 방지 + 잠금 중 부채꼴 방향 UI 숨김 + GPX 따라가기 시뮬레이션(배속) + 상단 메뉴 '저장' 제거 + 시뮬레이션 중 거리·시간 표시 + 초기화 시 시뮬레이션 거리·시간 초기화 + 시뮬/기록 동시 실행 방지 + 토스트 잘림 수정, 시뮬 나침반=진행방향 위로 + 시뮬 나침반 해제 시 지도 방향 유지 + 시뮬 중 나침반 배율 유지 + 시뮬 중 상단 고도70:GPX명30 비율 + 풍향 화살표 풍속별 색상 + 좌표 아래 주소 표시 + 시뮬/나침반 회전 다운 방지 + 시뮬 속도 표시, 초기화 시 기록 경로 삭제 + 시뮬 종료 시 종료 위치 유지 + Esri 위성 지도에서 원형 나침반 흰색 + 터치 시에만 주소 5초 표시 + 시뮬 중 로드/초기화 비활성화 + 시뮬 속도 '-' 표시 + 시뮬 시작/종료 메세지 삭제 + 시뮬 중 고도 상세창 그래프에 시뮬 위치 점 표시 + 고도/날씨 상세창 반투명 + 상세창 농도 상향 + 시뮬 시작/종료 알림음 + 기록 경로 선 자홍색+흰 테두리 + 고도 상세창에 작은 고도 위치 점 표시 + 시뮬 역방향/위치 점프 + 십자선 위치부터 시뮬 시작 메뉴 + 시뮬 메뉴 구분선 + 잠금 중 위치 반영 5초 간격 + 종료·저장 결과를 상태 줄에 3초 표시 + 알림(토스트) 제거, 모든 메시지를 상태 줄에 3초 표시 + 시뮬 중 고도 상세창은 시뮬 위치만 표시 + 지도 서버 재접속·타일 자동 재요청 + 시뮬 중 화면 슬립 방지 + 지도 서버 재시작 안정화(NameError 수정) (v4.72)
 import ui, location, math, os, time, datetime, json, urllib.request, threading, sys, socket
 import io, zlib, struct, shutil
 import dialogs, console, sound
@@ -2915,7 +2915,7 @@ class SafeHTTPServer(http.server.ThreadingHTTPServer):
 
     def server_bind(self):
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        http.server.ThreadingHTTPServer.server_bind(self)
+        super().server_bind()
 
     @staticmethod
     def _unwrap(request):
@@ -2924,21 +2924,21 @@ class SafeHTTPServer(http.server.ThreadingHTTPServer):
         return request
 
     def get_request(self):
-        request, client_address = http.server.ThreadingHTTPServer.get_request(self)
+        request, client_address = super().get_request()
         return self._unwrap(request), client_address
 
     def finish_request(self, request, client_address):
         request = self._unwrap(request)
         if request is None:
             return
-        http.server.ThreadingHTTPServer.finish_request(self, request, client_address)
+        super().finish_request(request, client_address)
 
     def shutdown_request(self, request):
         request = self._unwrap(request)
         if request is None:
             return
         try:
-            http.server.ThreadingHTTPServer.shutdown_request(self, request)
+            super().shutdown_request(request)
         except Exception:
             pass
 
@@ -2947,7 +2947,7 @@ class SafeHTTPServer(http.server.ThreadingHTTPServer):
         if request is None:
             return
         try:
-            http.server.ThreadingHTTPServer.close_request(self, request)
+            super().close_request(request)
         except Exception:
             pass
 
@@ -3533,6 +3533,8 @@ class TrekApp(ui.View):
         self.center_elevation = None
         self.last_deviation_alert = 0
         self.server = None
+        self.server_thread = None
+        self.server_fail_n = 0
 
         self.heading_running = False
         self.has_h = False
@@ -3744,26 +3746,34 @@ class TrekApp(ui.View):
             self.status.text = '터치 잠금이 해제되었습니다'
 
     def ensure_server(self):
-        """로컬 지도 서버가 응답하는지 확인하고, 죽었으면 같은 포트로 다시 시작한다 (페이지는 다시 불러오지 않음)."""
-        if self.closed or not SERVER_PORT:
+        """로컬 지도 서버가 살아 있는지 확인하고, 죽었으면 같은 포트로 다시 시작한다 (페이지는 다시 불러오지 않음).
+        서버 스레드가 끝났거나 연결 확인이 2번 연속 실패했을 때만 재시작한다 (일시적으로 바쁜 것을 죽은 것으로 오인 방지)."""
+        if self.closed or not SERVER_PORT or self.server is None:
             return True
-        try:
-            c = socket.create_connection(('127.0.0.1', SERVER_PORT), timeout=1.5)
-            c.close()
-            return True
-        except Exception:
-            pass
+        th = self.server_thread
+        dead = th is not None and not th.is_alive()
+        if not dead:
+            try:
+                c = socket.create_connection(('127.0.0.1', SERVER_PORT), timeout=3.0)
+                c.close()
+                self.server_fail_n = 0
+                return True
+            except Exception:
+                self.server_fail_n += 1
+            if self.server_fail_n < 2:
+                return False
+        self.server_fail_n = 0
         dlog("지도 서버 응답 없음 -> 같은 포트로 재시작")
         try:
             old, self.server = self.server, None
-            if old:
-                try:
-                    old.server_close()
-                except Exception:
-                    pass
+            self._shutdown_http_server(old)         # 이전 서버 스레드까지 확실히 정지
+            if self.closed:
+                return False
             srv = SafeHTTPServer(('127.0.0.1', SERVER_PORT), MapHandler)
             self.server = srv
-            threading.Thread(target=srv.serve_forever, daemon=True).start()
+            th = threading.Thread(target=srv.serve_forever, daemon=True)
+            th.start()
+            self.server_thread = th
             dlog("지도 서버 재시작 완료 (포트 %d)" % SERVER_PORT)
             return True
         except Exception as e:
@@ -3848,20 +3858,29 @@ class TrekApp(ui.View):
             SERVER_PORT = self.server.server_address[1]
             th = threading.Thread(target=self.server.serve_forever, daemon=True)
             th.start()
+            self.server_thread = th
             self.web.load_url('http://127.0.0.1:%d/' % SERVER_PORT)
             dlog("HTTP 서버 안전 시작 포트: %d" % SERVER_PORT)
         except Exception as e:
             dlog("HTTP 서버 시작 실패: %s" % e)
             print("HTTP Server Error:", e)
 
+    @staticmethod
+    def _shutdown_http_server(srv):
+        """서버 루프를 멈추고 소켓을 닫는다 (shutdown이 오래 걸려도 2초 후엔 넘어감)."""
+        if not srv:
+            return
+        t = threading.Thread(target=srv.shutdown, daemon=True)
+        t.start()
+        t.join(2.0)
+        try:
+            srv.server_close()
+        except Exception:
+            pass
+
     def stop_server(self):
         srv, self.server = self.server, None
-        if srv:
-            try:
-                srv.shutdown()
-                srv.server_close()
-            except Exception:
-                pass
+        self._shutdown_http_server(srv)
 
     def _button(self, title, color, action):
         b = ui.Button(title=title, tint_color='white', background_color=color,
@@ -4731,6 +4750,10 @@ class TrekApp(ui.View):
         self.sim_ts = time.time()
         self.sim_paused = False
         self.sim_active = True
+        try:
+            console.set_idle_timer_disabled(True)       # 시뮬레이션 중에는 화면이 꺼지지(슬립) 않게
+        except Exception:
+            pass
         self.refresh_buttons()
         if self.T.state == 'idle':
             self.T.clock_offset = 0.0
@@ -4756,6 +4779,10 @@ class TrekApp(ui.View):
             self.sim_s = 0.0            # 시뮬레이션 거리·시간 초기화 (완료로 끝났을 때만 마지막 값을 보여 줌)
         self.sim_active = False
         self.sim_paused = False
+        try:
+            console.set_idle_timer_disabled(self.T.state != 'idle')     # 시뮬 종료: 기록 중이 아니면 화면 슬립 허용
+        except Exception:
+            pass
         if self.T.state == 'idle':
             self.T.clock_offset = 0.0
         if not was:
