@@ -1,4 +1,4 @@
-# trekker.py - Pythonista 3용 트래킹 + 고도/상승 동적 전환 + GPX 배지 클릭 이동 + 기록 시 진행방향 자동회전 + 나침반/십자선 2초 표시 + 거리 척도 + GPX 고도 프로파일 + 기록 중 5초 간격 진행방향 회전 + 회전 방향 보정 + GPS 노이즈 제거/곡선 보정 + 상단 방위 바 + 상단 UI 높이 축소 + 고도 그래프 위치 점 + 방위 바 갱신 안정화 + 십자선 이동 시 표시/굵게 + 기본 지도 Topo(온라인) + 고도 상세 패널 + 기록 중 30초 생존 신호음 + HTTP 서버 오류 방어 + 지도 캐시 개선/오프라인 미리받기 + 클립보드 삭제 & 2초 숨김 & 툴팁 1.5배 띄우기 + 날씨 조회 안정화/날씨 로그 + 방위 바 양끝 흐림 + 풍향/풍속 표시 및 상세 정보창 + 날씨 1분 갱신 + 잠금 중 기록/진행방향만 수행 + 지도 터치 십자선/잠금 중 절전 + 종료 시 지도 회전/원형 나침반 없음 + 기록 중 경량 모드(진행 방향 외 갱신 지연) + 빠른 회전 시 다운 방지 + 잠금 중 부채꼴 방향 UI 숨김 + GPX 따라가기 시뮬레이션(배속) + 상단 메뉴 '저장' 제거 + 시뮬레이션 중 거리·시간 표시 + 초기화 시 시뮬레이션 거리·시간 초기화 + 시뮬/기록 동시 실행 방지 + 토스트 잘림 수정, 시뮬 나침반=진행방향 위로 + 시뮬 나침반 해제 시 지도 방향 유지 + 시뮬 중 나침반 배율 유지 + 시뮬 중 상단 고도70:GPX명30 비율 + 풍향 화살표 풍속별 색상 + 좌표 아래 주소 표시 + 시뮬/나침반 회전 다운 방지 + 시뮬 속도 표시, 초기화 시 기록 경로 삭제 + 시뮬 종료 시 종료 위치 유지 + Esri 위성 지도에서 원형 나침반 흰색 + 터치 시에만 주소 5초 표시 + 시뮬 중 로드/초기화 비활성화 + 시뮬 속도 '-' 표시 + 시뮬 시작/종료 메세지 삭제 + 시뮬 중 고도 상세창 그래프에 시뮬 위치 점 표시 + 고도/날씨 상세창 반투명 + 상세창 농도 상향 + 시뮬 시작/종료 알림음 (v4.62)
+# trekker.py - Pythonista 3용 트래킹 + 고도/상승 동적 전환 + GPX 배지 클릭 이동 + 기록 시 진행방향 자동회전 + 나침반/십자선 2초 표시 + 거리 척도 + GPX 고도 프로파일 + 기록 중 5초 간격 진행방향 회전 + 회전 방향 보정 + GPS 노이즈 제거/곡선 보정 + 상단 방위 바 + 상단 UI 높이 축소 + 고도 그래프 위치 점 + 방위 바 갱신 안정화 + 십자선 이동 시 표시/굵게 + 기본 지도 Topo(온라인) + 고도 상세 패널 + 기록 중 30초 생존 신호음 + HTTP 서버 오류 방어 + 지도 캐시 개선/오프라인 미리받기 + 클립보드 삭제 & 2초 숨김 & 툴팁 1.5배 띄우기 + 날씨 조회 안정화/날씨 로그 + 방위 바 양끝 흐림 + 풍향/풍속 표시 및 상세 정보창 + 날씨 1분 갱신 + 잠금 중 기록/진행방향만 수행 + 지도 터치 십자선/잠금 중 절전 + 종료 시 지도 회전/원형 나침반 없음 + 기록 중 경량 모드(진행 방향 외 갱신 지연) + 빠른 회전 시 다운 방지 + 잠금 중 부채꼴 방향 UI 숨김 + GPX 따라가기 시뮬레이션(배속) + 상단 메뉴 '저장' 제거 + 시뮬레이션 중 거리·시간 표시 + 초기화 시 시뮬레이션 거리·시간 초기화 + 시뮬/기록 동시 실행 방지 + 토스트 잘림 수정, 시뮬 나침반=진행방향 위로 + 시뮬 나침반 해제 시 지도 방향 유지 + 시뮬 중 나침반 배율 유지 + 시뮬 중 상단 고도70:GPX명30 비율 + 풍향 화살표 풍속별 색상 + 좌표 아래 주소 표시 + 시뮬/나침반 회전 다운 방지 + 시뮬 속도 표시, 초기화 시 기록 경로 삭제 + 시뮬 종료 시 종료 위치 유지 + Esri 위성 지도에서 원형 나침반 흰색 + 터치 시에만 주소 5초 표시 + 시뮬 중 로드/초기화 비활성화 + 시뮬 속도 '-' 표시 + 시뮬 시작/종료 메세지 삭제 + 시뮬 중 고도 상세창 그래프에 시뮬 위치 점 표시 + 고도/날씨 상세창 반투명 + 상세창 농도 상향 + 시뮬 시작/종료 알림음 + 기록 경로 선 자홍색+흰 테두리 + 고도 상세창에 작은 고도 위치 점 표시 + 시뮬 역방향/위치 점프 + 십자선 위치부터 시뮬 시작 메뉴 + 시뮬 메뉴 구분선 + 잠금 중 위치 반영 5초 간격 + 종료·저장 결과를 상태 줄에 3초 표시 + 알림(토스트) 제거, 모든 메시지를 상태 줄에 3초 표시 + 시뮬 중 고도 상세창은 시뮬 위치만 표시 + 지도 서버 재접속·타일 자동 재요청 (v4.70)
 import ui, location, math, os, time, datetime, json, urllib.request, threading, sys, socket
 import io, zlib, struct, shutil
 import dialogs, console, sound
@@ -54,7 +54,7 @@ WX_RETRY_BACKOFF = (30, 60, 120, 300)   # s, 조회가 연소�
 WX_WATCHDOG_SEC = 90       # s, 조회가 이 시간 넘게 끝나지 않으면 멈춘 것으로 보고 새로 시도
 WX_STALE_SEC = 300         # s, 이보다 오래된(갱신이 계속 실패한) 날씨는 흐리게 표시
 LOCK_HEADING_SEC = 10       # s, 잠금 중 진행 방향 계산 간격
-LOCK_MAP_SEC = 30           # s, 잠금 중 지도 갱신(내 위치·경로·회전) 간격
+LOCK_MAP_SEC = 5            # s, 잠금 중 지도 갱신(내 위치·경로·회전) 간격
 LOCK_PAUSE_DEVIATION = False  # 잠금 중에는 경로 이탈 경고(진동/소리)도 일시 정지 (False면 잠금 중에도 경고)
 WX_CACHE_MAX_AGE = 10800   # s, 저장된 날씨를 쓸 수 있는 최대 경과 시간(3시간)
 # ---- 지도 타일 캐시 / 오프라인 설정
@@ -78,6 +78,7 @@ REC_HEADING_RESEND_SEC = 5   # s, 변화가 없어도 �
 SIM_BASE_KMH = 4.0                      # km/h, 1배속일 때 걷는 속도
 SIM_SPEEDS = (1, 2, 5, 10, 20, 50, 100)  # 선택할 수 있는 배속
 SIM_LOOKAHEAD_M = 25.0                  # m, 시뮬레이션 진행 방향 계산 시 앞쪽으로 내다보는 거리
+SIM_MENU_SEP = '\u2500' * 14             # 시뮬레이션 메뉴 구분선 (선택해도 아무 동작 안 함)
 SIM_DEFAULT_SPEED = 5                   # 처음 선택되어 있는 배속
 TRACK_HEADING_SEC = 5   # s, 기록 중 진행 방향(지도 회전 기준)을 갱신하는 간격
 TRACK_HEADING_DIST = 10 # m, 현재 위치와 이만큼 이전 위치를 이은 선으로 방향 계산
@@ -702,8 +703,26 @@ var map = L.map('map', {
 var proxyBase = 'http://127.0.0.1:' + PORT + '/proxy/';
 var vworldKey = '__VWORLD_KEY__';
 
+var tileErrCount = 0, tileRetryDelay = 6000, tileRetryTimer = null;
+function retryTiles() {                 // 현재 지도 타일을 모두 다시 요청 (저장된 타일은 즉시, 나머지는 서버에서 다시 받음)
+  try { if (currentLayer && map.hasLayer(currentLayer)) currentLayer.redraw(); } catch (e) {}
+}
+function scheduleTileRetry() {          // 타일 불러오기 오류가 나면 점점 간격을 늘리며 자동 재시도
+  if (tileRetryTimer) return;
+  tileRetryTimer = setTimeout(function() {
+    tileRetryTimer = null;
+    if (tileErrCount > 0) {
+      tileErrCount = 0;
+      retryTiles();
+      tileRetryDelay = Math.min(tileRetryDelay * 2, 60000);
+    }
+  }, tileRetryDelay);
+}
 function tl(path, maxZoom) {
-  return L.tileLayer(proxyBase + path, {maxZoom: maxZoom, keepBuffer: 4, updateWhenIdle: false});
+  var lyr = L.tileLayer(proxyBase + path, {maxZoom: maxZoom, keepBuffer: 4, updateWhenIdle: false});
+  lyr.on('tileerror', function() { tileErrCount++; scheduleTileRetry(); });
+  lyr.on('load', function() { if (tileErrCount === 0) tileRetryDelay = 6000; });
+  return lyr;
 }
 var layers = {
   'opentopo': tl('opentopo/{z}/{x}/{y}.png?mode=cache', 17),
@@ -1235,8 +1254,10 @@ function switchLayer(key, name, btn, e) {
 }
 
 var me = L.circleMarker([0,0], {radius:8, color:'#ffffff', weight:3, fillColor:'#ff3b30', fillOpacity:1});
-var routeLine = L.polyline([], {color:'#ff9f0a', weight:5, opacity:0.8}).addTo(map);
 var gpxLine = L.polyline([], {color:'#0a84ff', weight:5, opacity:0.8}).addTo(map);
+// 기록 경로: Topo/위성 지도에서도 눈에 띄도록 진한 자홍색 선 + 흰색 테두리 (GPX 경로선 위에 그림)
+var routeCase = L.polyline([], {color:'#ffffff', weight:10, opacity:0.95, lineCap:'round', lineJoin:'round'}).addTo(map);
+var routeLine = L.polyline([], {color:'#ff00cc', weight:5, opacity:1, lineCap:'round', lineJoin:'round'}).addTo(map);
 var extraLayer = L.layerGroup().addTo(map);
 var first = true;
 
@@ -1252,11 +1273,12 @@ var animCurrentLat = 0, animCurrentLon = 0;
 var isAnimating = false;
 
 var simOn = false, simFollow = false;
-var simFrac = null, edTouched = false;     // 시뮬레이션 진행 비율(0~1), 고도 상세 그래프를 손으로 짚었는지
+var simFrac = null, edTouched = false, curFrac = null;     // 시뮬레이션 진행 비율(0~1), 고도 상세 그래프를 손으로 짚었는지
 function setSimMode(on, lat, lon) {
   simOn = !!on;
   simFollow = !!on;
   simFrac = on ? 0 : null;
+  updateEdCur();
   updateEdSim();
   if (on) document.body.classList.add('sim-on');
   else document.body.classList.remove('sim-on');
@@ -1269,6 +1291,13 @@ function setSimMode(on, lat, lon) {
   }
 }
 map.on('dragstart', function() { simFollow = false; });
+function simJump(lat, lon) {
+  simFollow = true;
+  animCurrentLat = lat; animCurrentLon = lon;
+  animTargetLat = lat; animTargetLon = lon;
+  try { me.setLatLng([lat, lon]); } catch (e) {}
+  map.setView([lat, lon], map.getZoom(), {animate: false});
+}
 
 function updateMap(lat, lon, pts, rec) {
   isRecording = !!rec;
@@ -1290,6 +1319,7 @@ function updateMap(lat, lon, pts, rec) {
   }
 
   if (pts && pts.length > 0) {
+    routeCase.setLatLngs(pts);
     routeLine.setLatLngs(pts);
   }
 
@@ -1454,6 +1484,8 @@ function updateElevCursor() {
   updateRouteCrosshair(hasRoute, near);
   if (!near || !elevProf || elevProf.length < 2 || !box || !box.classList.contains('show')) {
     cur.style.display = 'none';
+    curFrac = null;
+    updateEdCur();
     return;
   }
   var dist = gpxCum[near.i] + near.u * (gpxCum[near.i + 1] - gpxCum[near.i]);
@@ -1465,6 +1497,8 @@ function updateElevCursor() {
   dot.style.left = (frac * 100).toFixed(2) + '%';
   dot.style.top = (y / H * 100).toFixed(2) + '%';
   cur.style.display = 'block';
+  curFrac = frac;
+  updateEdCur();
 }
 
 var lastElevUpd = 0, elevUpdTimer = null;
@@ -1689,6 +1723,9 @@ function drawElevChart() {
            + 'L' + X(prof[0][0]).toFixed(1) + ',' + (H - mb) + 'Z';
   s += '<path d="' + area + '" fill="url(#edg)"/>';
   s += '<path d="' + line + '" fill="none" stroke="#e8643c" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
+  s += '<line id="ed-pos-line" x1="0" y1="' + mt + '" x2="0" y2="' + (H - mb)
+     + '" stroke="#0a84ff" stroke-width="1.5" visibility="hidden"/>';
+  s += '<circle id="ed-pos-dot" cx="0" cy="0" r="6" fill="#0a84ff" stroke="#ffffff" stroke-width="2" visibility="hidden"/>';
   s += '<line id="ed-sim-line" x1="0" y1="' + mt + '" x2="0" y2="' + (H - mb)
      + '" stroke="#30d158" stroke-width="1.5" visibility="hidden"/>';
   s += '<circle id="ed-sim-dot" cx="0" cy="0" r="6" fill="#30d158" stroke="#ffffff" stroke-width="2" visibility="hidden"/>';
@@ -1698,7 +1735,34 @@ function drawElevChart() {
   s += '</svg>';
   box.innerHTML = s;
   edGeom = {W: W, H: H, ml: ml, mr: mr, mt: mt, mb: mb, total: total, X: X, Y: Y};
+  updateEdCur();
   updateEdSim();
+}
+
+function updateEdCur() {
+  var ln = document.getElementById('ed-pos-line'), dt = document.getElementById('ed-pos-dot');
+  var pn = document.getElementById('elev-detail');
+  if (!ln || !dt || !pn || !pn.classList.contains('show')) return;
+  var g = edGeom, d = elevDetail;
+  // 시뮬레이션 진행 중에는 십자선 위치 대신 시뮬 진행 위치(초록)만 표시
+  if (curFrac === null || (simOn && simFrac !== null) || !g || !d || !d.prof || d.prof.length < 2) {
+    ln.setAttribute('visibility', 'hidden');
+    dt.setAttribute('visibility', 'hidden');
+    return;
+  }
+  var m = Math.max(0, Math.min(1, curFrac)) * g.total;
+  var e = profAt(d.prof, m);
+  var x = g.X(m).toFixed(1);
+  ln.setAttribute('x1', x); ln.setAttribute('x2', x); ln.setAttribute('visibility', 'visible');
+  dt.setAttribute('cx', x); dt.setAttribute('cy', g.Y(e).toFixed(1)); dt.setAttribute('visibility', 'visible');
+  if (!edTouched && !(simOn && simFrac !== null)) {
+    var win = Math.max(g.total / 150, 60);
+    var a = Math.max(0, m - win / 2), b = Math.min(g.total, m + win / 2);
+    var grade = b > a ? (profAt(d.prof, b) - profAt(d.prof, a)) / (b - a) * 100 : 0;
+    var col = grade > 0 ? '#ff9f0a' : (grade < 0 ? '#5ac8fa' : '#d1d1d6');
+    document.getElementById('ed-readout').innerHTML = '📍 <b>' + (m / 1000).toFixed(2) + ' km</b> · <b>'
+      + Math.round(e) + ' m</b> · 경사 <b style="color:' + col + ';">' + (grade > 0 ? '+' : '') + grade.toFixed(1) + '%</b>';
+  }
 }
 
 function updateEdSim() {
@@ -2206,6 +2270,7 @@ function hideDifficulty() {
 }
 
 function clearTrackLine() {
+  routeCase.setLatLngs([]);
   routeLine.setLatLngs([]);          // 시작 버튼으로 기록한 경로선(주황)
 }
 
@@ -2442,6 +2507,7 @@ TILE_AVG_KB = {'opentopo': 25, 'esri': 30, 'cyclosm': 20, 'vworld_base': 20, 'vw
 LAYER_NAMES = {'opentopo': 'Topo', 'esri': 'Esri 위성', 'cyclosm': 'CyclOSM',
                'vworld_base': '국토부 일반', 'vworld_sat': '국토부 위성'}
 NET_STATE = {'fail_until': 0.0}
+TILE_STATS = {'miss': 0}    # 네트워크 일시 실패로 빈/대체 타일을 보낸 횟수 (복구되면 지도 타일을 다시 요청)
 NET_SEM = threading.Semaphore(6)
 TILE_REQ_SEM = threading.BoundedSemaphore(12)   # 동시에 처리하는 타일 요청 수 (빠른 회전 때 요청 폭주 방지)
 
@@ -2524,8 +2590,11 @@ def write_cached_tile(path, data):
         return False
 
 def fetch_tile_net(layer_id, z, x, y):
+    """타일을 내려받는다. 반환: 이미지 데이터 / None(일시 실패 - 나중에 다시 시도) / False(서버에 타일이 없음 - 재시도 불필요)"""
     url = tile_remote_url(layer_id, z, x, y)
-    if not url or time.time() < NET_STATE['fail_until']:
+    if not url:
+        return False
+    if time.time() < NET_STATE['fail_until']:
         return None
     for _attempt in range(2):
         try:
@@ -2537,9 +2606,12 @@ def fetch_tile_net(layer_id, z, x, y):
             return data if is_valid_tile(data) else None
         except urllib.error.HTTPError as e:
             if e.code in (400, 401, 403, 404):
-                return None
+                return False
             time.sleep(0.4)
         except Exception:
+            if _attempt == 0:
+                time.sleep(0.5)         # 재접속: 한동안 안 쓰다 돌아오면 첫 연결이 실패하는 경우가 있어 한 번 더 시도
+                continue
             NET_STATE['fail_until'] = time.time() + NET_FAIL_COOLDOWN
             return None
     return None
@@ -2591,6 +2663,8 @@ def get_tile(layer_id, z, x, y, allow_net=True):
         if data:
             write_cached_tile(path, data)
             return data, ctype, True
+        if data is None:
+            TILE_STATS['miss'] += 1     # 일시 실패: 연결이 복구되면 지도 타일을 다시 요청하도록 기록
     approx = make_overzoom_tile(layer_id, z, x, y)
     if approx:
         return approx, ctype, False
@@ -3485,6 +3559,8 @@ class TrekApp(ui.View):
         self.sim_route = None
         self.sim_s = 0.0                # 경로를 따라 이동한 거리(m)
         self.sim_ts = 0.0
+        self.sim_trav = 0.0             # 시뮬레이션으로 실제 이동한 누적 거리(m) - 점프·시작 위치와 무관하게 표시용
+        self.sim_dir = 1                # 시뮬레이션 진행 방향 (1=정방향, -1=역방향)
         self.gpx_eles = []              # 불러온 GPX의 고도 (시뮬레이션 고도용)
         self.dev_ts = 0.0               # 마지막 경로 이탈 검사 시각 (기록 중 간격 조절용)
         self.dev_result = False
@@ -3590,13 +3666,11 @@ class TrekApp(ui.View):
         self.lock_view.hidden = True
         self.add_subview(self.lock_view)
 
-        self.toast_token = 0
-        self.toast = ui.View(background_color=(0, 0, 0, 0.82), corner_radius=14)
-        self.toast_label = ui.Label(text='', text_color='white', font=('<System-Bold>', 20),
-                                    alignment=ui.ALIGN_CENTER)
-        self.toast.add_subview(self.toast_label)
-        self.toast.hidden = True
-        self.add_subview(self.toast)
+        self.status_hold_until = 0.0     # 상태 줄 메시지 고정 해제 시각 (그 전까지는 GPS 상태 갱신이 덮어쓰지 않음)
+        self.status_hold_text = ''
+        self.status_hold_token = 0
+        self.tile_retry_at = 0.0          # 지도 타일 재요청 가능 시각
+        self.tile_retry_n = 0
 
         self.update_stats()
         location.start_updates()
@@ -3669,11 +3743,80 @@ class TrekApp(ui.View):
             self.unlock_ui()
             self.status.text = '터치 잠금이 해제되었습니다'
 
+    def ensure_server(self):
+        """로컬 지도 서버가 응답하는지 확인하고, 죽었으면 같은 포트로 다시 시작한다 (페이지는 다시 불러오지 않음)."""
+        if self.closed or not SERVER_PORT:
+            return True
+        try:
+            c = socket.create_connection(('127.0.0.1', SERVER_PORT), timeout=1.5)
+            c.close()
+            return True
+        except Exception:
+            pass
+        dlog("지도 서버 응답 없음 -> 같은 포트로 재시작")
+        try:
+            old, self.server = self.server, None
+            if old:
+                try:
+                    old.server_close()
+                except Exception:
+                    pass
+            srv = SafeHTTPServer(('127.0.0.1', SERVER_PORT), MapHandler)
+            self.server = srv
+            threading.Thread(target=srv.serve_forever, daemon=True).start()
+            dlog("지도 서버 재시작 완료 (포트 %d)" % SERVER_PORT)
+            return True
+        except Exception as e:
+            dlog("지도 서버 재시작 실패: %s" % e)
+            return False
+
+    def map_recover(self, online):
+        """일시 실패한 지도 타일이 있으면, 연결이 되는 동안 간격을 늘려가며 지도 타일을 다시 요청한다."""
+        now = time.time()
+        if TILE_STATS['miss'] <= 0:
+            self.tile_retry_n = 0
+            return
+        if (not online) or self.is_locked or now < self.tile_retry_at:
+            return
+        TILE_STATS['miss'] = 0
+        self.tile_retry_n += 1
+        self.tile_retry_at = now + min(60.0, 6.0 * (2 ** min(self.tile_retry_n, 4)))
+        run_on_main(self.retry_map_tiles)
+
+    def retry_map_tiles(self):
+        if self.closed:
+            return
+        if self.js_busy:                # 다른 JS 작업 중이면 다음 점검 때 다시
+            TILE_STATS['miss'] += 1
+            self.tile_retry_at = 0.0
+            return
+        self.js_busy = True
+        try:
+            self.web.evaluate_javascript('retryTiles();')
+            dlog("지도 타일 재요청 (%d차)" % self.tile_retry_n)
+        except Exception as e:
+            dlog("지도 타일 재요청 오류: %s" % e)
+        finally:
+            self.js_busy = False
+
     def check_network_loop(self):
+        last_loop = time.time()
+        lock_n = 0
         while not self.closed:
-            if self.is_locked:          # 잠금 중에는 인터넷 점검 일시 정지
+            now = time.time()
+            if now - last_loop > 20.0:      # 루프가 오래 멈췄다 = 앱이 백그라운드에서 쉬다 돌아옴 -> 지도 재접속
+                dlog("앱 복귀 감지 (%.0f초 정지) -> 지도 재접속 시도" % (now - last_loop))
+                NET_STATE['fail_until'] = 0.0
+                self.ensure_server()
+                self.tile_retry_at = 0.0
+            last_loop = now
+            if self.is_locked:          # 잠금 중에는 인터넷 점검 일시 정지 (로컬 지도 서버만 가끔 확인)
+                lock_n += 1
+                if lock_n % 10 == 0:
+                    self.ensure_server()
                 time.sleep(1.0)
                 continue
+            lock_n = 0
             status = True
             try:
                 urllib.request.urlopen('https://clients3.google.com/generate_204', timeout=2)
@@ -3685,8 +3828,13 @@ class TrekApp(ui.View):
                 if status:
                     NET_STATE['fail_until'] = 0.0
                 run_on_main(self.update_title)
-            if not status:
+            if status:
+                NET_STATE['fail_until'] = 0.0   # 인터넷이 되면 지도 서버 연결 대기 시간도 바로 해제
+            else:
                 NET_STATE['fail_until'] = time.time() + 15
+            
+            self.ensure_server()
+            self.map_recover(status)
             
             for _ in range(50):
                 if self.closed:
@@ -3804,10 +3952,6 @@ class TrekApp(ui.View):
         self.lock_box.frame = (m + 8, web_bottom - btn_h - 8, lock_w, btn_h)
         self.lock_label.frame = (10, 4, lock_w - 20, btn_h - 8)
 
-        tw, th = 220, 56
-        self.toast.frame = (w / 2 - tw / 2, h / 2 - th / 2, tw, th)
-        self.toast_label.frame = (0, 0, tw, th)
-
         try:
             self.web.evaluate_javascript('if(typeof map !== "undefined") { map.invalidateSize(); }')
         except Exception:
@@ -3822,13 +3966,13 @@ class TrekApp(ui.View):
             stamp = datetime.datetime.fromtimestamp(self.T.start_ts or time.time()).strftime('%Y%m%d_%H%M%S')
             path = os.path.join(SAVE_DIR, 'trek_%s.gpx' % stamp)
             write_gpx(self.T.points, path, 'Trek ' + stamp, self.T.distance, int(self.T.gain), self.T.total_elapsed())
-            self.show_toast('✅ 저장되었습니다')
+            self.show_status_msg('✅ 저장되었습니다')
         except Exception as e:
             self.status.text = 'GPX 저장 실패'
 
     def on_gpx(self, sender):
         if self.sim_active:
-            self.show_toast('시뮬레이션 중에는 사용할 수 없어요')
+            self.show_status_msg('시뮬레이션 중에는 사용할 수 없어요')
             return
         try:
             os.makedirs(SAVE_DIR, exist_ok=True)
@@ -4031,7 +4175,7 @@ class TrekApp(ui.View):
             dlog("지도 미리받기 종료: 저장 %d / 실패 %d / 대상 %d %s" % (saved, failed, total, why))
             msg = ('⚠️ %s (%d개 저장)' % (why, saved)) if why else ('✅ 지도 %d개 저장' % saved)
             run_on_main(self.update_title)
-            run_on_main(lambda: self.show_toast(msg, 3.0))
+            run_on_main(lambda: self.show_status_msg(msg, 3.0))
 
     def cache_info(self):
         count, size = tile_cache_stats()
@@ -4040,38 +4184,11 @@ class TrekApp(ui.View):
         if self._alert('지도 캐시', msg, '확인', '전체 삭제') == 2:
             if self._confirm('지도 캐시 전체 삭제', '저장된 지도를 모두 지울까요?\n인터넷이 없으면 지도를 볼 수 없게 됩니다.', '삭제'):
                 shutil.rmtree(TILE_CACHE_DIR, ignore_errors=True)
-                self.show_toast('🧹 지도 캐시 삭제됨')
-
-    def show_toast(self, text, sec=2.0):
-        self.toast_token += 1
-        token = self.toast_token
-        self.toast_label.text = text
-        try:
-            self.toast_label.number_of_lines = 0
-            maxw = max(220.0, self.width - 48.0)
-            mw, mh = ui.measure_string(text, max_width=maxw - 32.0, font=self.toast_label.font,
-                                       alignment=ui.ALIGN_CENTER)
-            tw = min(maxw, max(220.0, mw + 32.0))
-            th = max(56.0, mh + 24.0)
-            self.toast.frame = (self.width / 2 - tw / 2, self.height / 2 - th / 2, tw, th)
-            self.toast_label.frame = (16, 8, tw - 32, th - 16)
-        except Exception:
-            pass
-        try:
-            self.remove_subview(self.toast)
-            self.add_subview(self.toast)
-        except Exception:
-            pass
-        self.toast.hidden = False
-        ui.delay(lambda: self.hide_toast(token), sec)
-
-    def hide_toast(self, token):
-        if token == self.toast_token:
-            self.toast.hidden = True
+                self.show_status_msg('🧹 지도 캐시 삭제됨')
 
     def on_reset(self, sender):
         if self.sim_active:
-            self.show_toast('시뮬레이션 중에는 사용할 수 없어요')
+            self.show_status_msg('시뮬레이션 중에는 사용할 수 없어요')
             return
         """초기화: 불러온 GPX 경로, 시뮬레이션, 그리고 시작 버튼으로 기록한 경로를 모두 지운다."""
         T = self.T
@@ -4111,7 +4228,7 @@ class TrekApp(ui.View):
     def on_main(self, sender):
         T = self.T
         if self.sim_active and T.state == 'idle':
-            self.show_toast('시뮬레이션 중에는 기록할 수 없어요')
+            self.show_status_msg('시뮬레이션 중에는 기록할 수 없어요')
             return
         if T.state == 'idle':
             self.sim_hold = False
@@ -4156,17 +4273,17 @@ class TrekApp(ui.View):
         self.refresh_buttons()
         
         if len(T.points) < 2:
-            self.status.text = '기록된 좌표가 부족해 저장하지 않았어요'
+            self.show_status_msg('기록된 좌표가 부족해 저장하지 않았어요', color='#ff9f0a')
             return
             
         stamp = datetime.datetime.fromtimestamp(T.start_ts).strftime('%Y%m%d_%H%M%S')
         path = os.path.join(SAVE_DIR, 'trek_%s.gpx' % stamp)
         try:
             write_gpx(T.points, path, 'Trek ' + stamp, T.distance, int(T.gain), T.total_elapsed())
-            self.show_toast('✅ 저장되었습니다')
+            self.show_status_msg('✅ 저장되었습니다')
         except Exception as e:
             dlog("종료 저장 실패: %s" % e)
-            self.status.text = '저장 실패'
+            self.show_status_msg('저장 실패', color='#ff9f0a')
 
     def refresh_buttons(self):
         st = self.T.state
@@ -4197,7 +4314,7 @@ class TrekApp(ui.View):
         sim_view = bool((self.sim_active or self.sim_hold) and T.state == 'idle')
         if sim_view:
             # 시뮬레이션 중(기록 전)에는 가상으로 이동한 거리와 걸린 시간(배속 반영)을 표시
-            dist_m, elapsed = self.sim_s, self.sim_s / (SIM_BASE_KMH / 3.6)
+            dist_m, elapsed = self.sim_trav, self.sim_trav / (SIM_BASE_KMH / 3.6)
         self.stat_boxes['dist'][2].text = '%.2fkm' % (dist_m / 1000)
         self.stat_boxes['time'][2].text = fmt_time(elapsed)
         if sim_view:                        # 시뮬레이션 중에는 속도를 측정하지 않고 '-' 로 표시
@@ -4250,7 +4367,7 @@ class TrekApp(ui.View):
                             sound.play_effect('Coin_2', 1.0)
                         except Exception:
                             pass
-                else:
+                elif time.time() >= self.status_hold_until:
                     self.status.text_color = '#8e8e93'
 
             if self.sim_active:
@@ -4561,11 +4678,19 @@ class TrekApp(ui.View):
         sm = self.sim_route
         moving = not self.sim_paused
         if moving:
-            self.sim_s += SIM_BASE_KMH / 3.6 * self.sim_mult * dt
+            self.sim_s += self.sim_dir * SIM_BASE_KMH / 3.6 * self.sim_mult * dt
+            self.sim_trav += SIM_BASE_KMH / 3.6 * self.sim_mult * dt
             self.T.clock_offset += (self.sim_mult - 1) * dt   # 배속만큼 기록 시간도 빠르게 흐름
-        finished = self.sim_s >= sm['total']
+        if self.sim_dir > 0:
+            finished = self.sim_s >= sm['total']
+        else:
+            finished = self.sim_s <= 0.0
+        if finished:
+            self.sim_s = sm['total'] if self.sim_dir > 0 else 0.0
         lat, lon, alt, course = self.sim_position(self.sim_s)
-        lat2, lon2, _a2, _c2 = self.sim_position(self.sim_s + SIM_LOOKAHEAD_M)
+        lat2, lon2, _a2, _c2 = self.sim_position(self.sim_s + self.sim_dir * SIM_LOOKAHEAD_M)
+        if self.sim_dir < 0:
+            course = (course + 180.0) % 360.0
         if hav(lat, lon, lat2, lon2) > 1.0:
             self.sim_heading = bearing_deg(lat, lon, lat2, lon2)      # 앞쪽을 내다본 방향 (꺾이는 곳에서 덜 흔들림)
         else:
@@ -4577,6 +4702,8 @@ class TrekApp(ui.View):
         return loc
 
     def sim_status(self):
+        if time.time() < self.status_hold_until:
+            return
         base = self.status.text
         if base.startswith('\U0001F9EA') and ' | ' in base:
             base = base.split(' | ', 1)[1]
@@ -4585,9 +4712,9 @@ class TrekApp(ui.View):
         state = '\u23F8' if self.sim_paused else '\u00D7%d' % self.sim_mult
         self.status.text = '\U0001F9EA %s %d%% | %s' % (state, pct, base)
 
-    def sim_start(self):
+    def sim_start(self, reverse=False, start_s=None):
         if self.T.state != 'idle':
-            self.show_toast('기록 중에는 시뮬레이션을 할 수 없어요')
+            self.show_status_msg('기록 중에는 시뮬레이션을 할 수 없어요')
             return
         sm = self.sim_build()
         if not sm:
@@ -4595,7 +4722,12 @@ class TrekApp(ui.View):
             return
         self.sim_route = sm
         self.sim_hold = False
-        self.sim_s = 0.0
+        self.sim_dir = -1 if reverse else 1
+        if start_s is not None:
+            self.sim_s = max(1.0, min(sm['total'] - 1.0, float(start_s)))
+        else:
+            self.sim_s = sm['total'] if reverse else 0.0
+        self.sim_trav = 0.0
         self.sim_ts = time.time()
         self.sim_paused = False
         self.sim_active = True
@@ -4603,7 +4735,9 @@ class TrekApp(ui.View):
         if self.T.state == 'idle':
             self.T.clock_offset = 0.0
         self.center_elevation = None
-        lat, lon, _alt, _c = self.sim_position(0.0)
+        lat, lon, _alt, _c = self.sim_position(self.sim_s)
+        if reverse:
+            _c = (_c + 180.0) % 360.0
         self.sim_heading = _c
         self.last_sent_h = None
         try:
@@ -4612,12 +4746,13 @@ class TrekApp(ui.View):
             pass
         dlog("시뮬레이션 시작: %d배속, 경로 %.2fkm" % (self.sim_mult, sm['total'] / 1000.0))
         self.play_live_signal()         # 시작 알림음 (기록 중 생존 신호음과 같은 소리)
-        #self.show_toast('\U0001F9EA 시뮬레이션 %d배속' % self.sim_mult)
+        #self.show_status_msg('\U0001F9EA 시뮬레이션 %d배속' % self.sim_mult)
 
     def sim_end(self, done=False):
         was = self.sim_active
         self.sim_hold = bool(done and was)
         if not done:
+            self.sim_trav = 0.0
             self.sim_s = 0.0            # 시뮬레이션 거리·시간 초기화 (완료로 끝났을 때만 마지막 값을 보여 줌)
         self.sim_active = False
         self.sim_paused = False
@@ -4636,7 +4771,124 @@ class TrekApp(ui.View):
         dlog("시뮬레이션 종료 (%s)" % ('경로 끝까지 완료' if done else '중지'))
         self.play_live_signal()         # 종료 알림음 (시뮬레이션이 실제로 켜져 있다가 끝날 때만 여기까지 옴)
         #if done:
-            #self.show_toast('\U0001F3C1 시뮬레이션 완료')
+            #self.show_status_msg('\U0001F3C1 시뮬레이션 완료')
+
+    def _sim_here_label(self):
+        return '\U0001F4CD 십자선 위치부터 시작 (%d배속)' % self.sim_mult
+
+    def _sim_here_rev_label(self):
+        return '\U0001F4CD 십자선 위치부터 거꾸로 시작'
+
+    def sim_nearest_s(self, sm, lat, lon):
+        """경로에서 (lat, lon)에 가장 가까운 지점까지의 경로 누적 거리(m)와, 그 지점까지 떨어진 거리(m)."""
+        route, cum = self.T.gpx_route, sm['cum']
+        kx = math.cos(math.radians(lat)) * 111320.0
+        ky = 110540.0
+        best = None
+        for i in range(len(route) - 1):
+            ax, ay = (route[i][1] - lon) * kx, (route[i][0] - lat) * ky
+            bx, by = (route[i + 1][1] - lon) * kx, (route[i + 1][0] - lat) * ky
+            dx, dy = bx - ax, by - ay
+            l2 = dx * dx + dy * dy
+            u = max(0.0, min(1.0, -(ax * dx + ay * dy) / l2)) if l2 > 0 else 0.0
+            qx, qy = ax + u * dx, ay + u * dy
+            d2 = qx * qx + qy * qy
+            if best is None or d2 < best[0]:
+                best = (d2, i, u)
+        d2, i, u = best
+        return cum[i] + u * (cum[i + 1] - cum[i]), math.sqrt(d2)
+
+    def sim_start_here(self, reverse=False):
+        """지도 중앙(십자선) 위치에서 가장 가까운 경로 지점부터 시뮬레이션을 시작한다."""
+        sm = self.sim_build()
+        if not sm:
+            self.status.text = '시뮬레이션할 GPX 경로가 없어요'
+            return
+        try:
+            r = self.web.evaluate_javascript('(function(){var c = map.getCenter(); return c.lat + "," + c.lng;})()')
+            clat, clon = [float(x) for x in str(r).split(',')]
+        except Exception:
+            self.show_status_msg('십자선 위치를 읽지 못했어요')
+            return
+        s, dist = self.sim_nearest_s(sm, clat, clon)
+        if dist > 100.0:
+            self.show_status_msg('경로에서 %dm 떨어짐 · 가까운 곳에서 시작' % int(dist))
+        self.sim_start(reverse=reverse, start_s=s)
+
+    def _sim_rev_label(self):
+        return '\u23EA 끝에서 거꾸로 시작 (%d배속)' % self.sim_mult
+
+    def _sim_dir_label(self):
+        return '\U0001F504 방향 반대로 (현재: %s)' % ('역방향' if self.sim_dir < 0 else '정방향')
+
+    def _sim_jump_label(self):
+        return '\U0001F3AF 위치 점프'
+
+    def sim_toggle_dir(self):
+        """시뮬레이션 진행 방향을 반대로 바꾼다 (정방향 <-> 역방향)."""
+        sm = self.sim_route
+        if not sm:
+            return
+        if self.sim_dir > 0 and self.sim_s <= 1.0:
+            self.show_status_msg('시작점에서는 반대로 갈 수 없어요')
+            return
+        if self.sim_dir < 0 and self.sim_s >= sm['total'] - 1.0:
+            self.show_status_msg('끝점에서는 정방향이 안 돼요')
+            return
+        self.sim_dir = -self.sim_dir
+        self.sim_ts = time.time()
+        self.has_h = False              # 진행 방향이 180도 바뀌므로 방향 평활화를 새로 시작
+        self.last_sent_h = None
+        dlog("시뮬레이션 방향: %s" % ('역방향' if self.sim_dir < 0 else '정방향'))
+
+    def sim_jump(self):
+        """시뮬레이션 위치를 경로의 다른 지점으로 한 번에 옮긴다."""
+        sm = self.sim_route
+        if not sm:
+            return
+        total = sm['total']
+        rel = [('-5km', -5000.0), ('-1km', -1000.0), ('-500m', -500.0),
+               ('+500m', 500.0), ('+1km', 1000.0), ('+5km', 5000.0)]
+        a_start = '\u23EE 시작점'
+        a_mid = '50% 지점'
+        a_end = '\u23ED 끝 100m 전'
+        a_in = '\u270F 거리(km)·퍼센트(%) 직접 입력'
+        items = [r[0] for r in rel] + [a_start, a_mid, a_end, a_in]
+        sel = dialogs.list_dialog('위치 점프 (현재 %.2f / %.2fkm)' % (self.sim_s / 1000.0, total / 1000.0), items)
+        if not sel:
+            return
+        target = None
+        for lab, dm in rel:
+            if sel == lab:
+                target = self.sim_s + dm
+        if sel == a_start:
+            target = 0.0
+        elif sel == a_mid:
+            target = total * 0.5
+        elif sel == a_end:
+            target = total - 100.0
+        elif sel == a_in:
+            txt = dialogs.input_alert('위치 점프', '이동할 위치 입력\n예: 3.5 (km) 또는 40%', '', '이동')
+            txt = (txt or '').strip().lower().replace(',', '.').replace('km', '').strip()
+            try:
+                if txt.endswith('%'):
+                    target = float(txt[:-1]) / 100.0 * total
+                else:
+                    target = float(txt) * 1000.0
+            except ValueError:
+                self.show_status_msg('숫자를 입력해 주세요')
+                return
+        if target is None:
+            return
+        target = max(1.0, min(total - 1.0, target))
+        self.sim_s = target
+        self.sim_ts = time.time()
+        lat, lon, _a, _c = self.sim_position(target)
+        try:
+            self.web.evaluate_javascript('simJump(%.6f, %.6f);' % (lat, lon))
+        except Exception:
+            pass
+        dlog("시뮬레이션 점프: %.2fkm 지점" % (target / 1000.0))
 
     def sim_pick_speed(self):
         items = ['%d배속  (약 %.1fkm/h)' % (m, SIM_BASE_KMH * m) for m in SIM_SPEEDS]
@@ -4650,16 +4902,24 @@ class TrekApp(ui.View):
         try:
             if not self.sim_active:
                 if self.T.state != 'idle':
-                    self.show_toast('기록 중에는 시뮬레이션을 할 수 없어요')
+                    self.show_status_msg('기록 중에는 시뮬레이션을 할 수 없어요')
                     return
                 if not self.T.gpx_route or len(self.T.gpx_route) < 2:
                     self.status.text = '먼저 GPX 경로를 불러와 주세요 (로드)'
                     return
                 a_start = '\u25B6 시작 (%d배속)' % self.sim_mult
                 a_speed = '\u23E9 배속 선택 후 시작'
-                sel = dialogs.list_dialog('GPX 따라가기 시뮬레이션', [a_start, a_speed])
-                if sel == a_start:
+                sel = dialogs.list_dialog('GPX 따라가기 시뮬레이션', [self._sim_here_label(), self._sim_here_rev_label(), SIM_MENU_SEP, a_start, self._sim_rev_label(), a_speed])
+                if sel == self._sim_here_label():
+                    self.sim_start_here(False)
+                elif sel == self._sim_here_rev_label():
+                    self.sim_start_here(True)
+                elif sel == SIM_MENU_SEP:
+                    pass
+                elif sel == a_start:
                     self.sim_start()
+                elif sel == self._sim_rev_label():
+                    self.sim_start(reverse=True)
                 elif sel == a_speed:
                     if self.sim_pick_speed():
                         self.sim_start()
@@ -4668,15 +4928,19 @@ class TrekApp(ui.View):
                 a_speed = '\u23E9 배속 변경 (현재 %d배속)' % self.sim_mult
                 a_restart = '\u23EE 처음부터 다시'
                 a_end = '\u23F9 시뮬레이션 종료'
-                sel = dialogs.list_dialog('GPX 따라가기 시뮬레이션', [a_pause, a_speed, a_restart, a_end])
+                sel = dialogs.list_dialog('GPX 따라가기 시뮬레이션', [a_pause, a_speed, self._sim_dir_label(), self._sim_jump_label(), a_restart, a_end])
                 if sel == a_pause:
                     self.sim_paused = not self.sim_paused
                     self.sim_ts = time.time()
                 elif sel == a_speed:
                     self.sim_pick_speed()
                     self.sim_ts = time.time()
+                elif sel == self._sim_dir_label():
+                    self.sim_toggle_dir()
+                elif sel == self._sim_jump_label():
+                    self.sim_jump()
                 elif sel == a_restart:
-                    self.sim_start()
+                    self.sim_start(reverse=(self.sim_dir < 0))
                 elif sel == a_end:
                     self.sim_end()
                     self.update_stats()
@@ -4725,7 +4989,7 @@ class TrekApp(ui.View):
             pass
 
     def locked_map_refresh(self):
-        """잠금 중: 지도 갱신(내 위치·기록 경로·진행 방향 회전)을 LOCK_MAP_SEC(30초)에 한 번만 수행."""
+        """잠금 중: 지도 갱신(내 위치·기록 경로·진행 방향 회전)을 LOCK_MAP_SEC(5초)에 한 번만 수행."""
         now = time.time()
         if now - self.last_map_refresh < LOCK_MAP_SEC or self.last_lat is None:
             return
@@ -4852,7 +5116,32 @@ class TrekApp(ui.View):
             if not self.closed:
                 ui.delay(self.heading_tick, interval)
 
+    def show_status_msg(self, text, sec=3.0, color=None):
+        """상태 줄(GPS 수신 상태 자리)에 메시지를 sec초 동안 표시한다. 그동안 GPS 상태 갱신이 덮어쓰지 않는다."""
+        if color is None:               # 성공(✅·🧹)은 초록, 그 외 안내·경고는 주황
+            color = '#30d158' if text[:1] in ('\u2705', '\U0001F9F9') else '#ff9f0a'
+        self.status_hold_token += 1
+        token = self.status_hold_token
+        self.status_hold_until = time.time() + sec
+        self.status_hold_text = text
+        self.status.text = text
+        self.status.text_color = color
+        ui.delay(lambda: self.end_status_msg(token), sec)
+
+    def end_status_msg(self, token):
+        if token == self.status_hold_token:
+            self.status_hold_until = 0.0
+            self.status.text_color = '#8e8e93'
+
     def on_location(self, loc):
+        hold = time.time() < self.status_hold_until
+        try:
+            self._on_location(loc)
+        finally:
+            if hold:                    # 메시지 표시 중에는 GPS 상태 문구로 덮어쓰지 않음
+                self.status.text = self.status_hold_text
+
+    def _on_location(self, loc):
         T = self.T
         acc = loc.get('horizontal_accuracy', -1)
         if acc < 0:
