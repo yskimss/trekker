@@ -1,33 +1,36 @@
-# ==============================================================================
-# LICENSE & DISCLAIMER (Apache License, Version 2.0)
-# 라이선스 및 면책 공지 (아파치 라이선스 버전 2.0)
+# trekker.py - Pythonista 3용 트래킹 + 고도/상승 동적 전환 + GPX 배지 클릭 이동 + 기록 시 진행방향 자동회전 + 나침반/십자선 2초 표시 + 거리 척도 + GPX 고도 프로파일 + 기록 중 5초 간격 진행방향 회전 + 회전 방향 보정 + GPS 노이즈 제거/곡선 보정 + 상단 방위 바 + 상단 UI 높이 축소 + 고도 그래프 위치 점 + 방위 바 갱신 안정화 + 십자선 이동 시 표시/굵게 + 기본 지도 Topo(온라인) + 고도 상세 패널 + 기록 중 30초 생존 신호음 + HTTP 서버 오류 방어 + 지도 캐시 개선/오프라인 미리받기 + 클립보드 삭제 & 2초 숨김 & 툴팁 1.5배 띄우기 + 날씨 조회 안정화/날씨 로그 + 방위 바 양끝 흐림 + 풍향/풍속 표시 및 상세 정보창 + 날씨 1분 갱신 + 잠금 중 기록/진행방향만 수행 + 지도 터치 십자선/잠금 중 절전 + 종료 시 지도 회전/원형 나침반 없음 + 기록 중 경량 모드(진행 방향 외 갱신 지연) + 빠른 회전 시 다운 방지 + 잠금 중 부채꼴 방향 UI 숨김 + GPX 따라가기 시뮬레이션(배속) + 상단 메뉴 '저장' 제거 + 시뮬레이션 중 거리·시간 표시 + 초기화 시 시뮬레이션 거리·시간 초기화 + 시뮬/기록 동시 실행 방지 + 토스트 잘림 수정, 시뮬 나침반=진행방향 위로 + 시뮬 나침반 해제 시 지도 방향 유지 + 시뮬 중 나침반 배율 유지 + 시뮬 중 상단 고도70:GPX명30 비율 + 풍향 화살표 풍속별 색상 + 좌표 아래 주소 표시 + 시뮬/나침반 회전 다운 방지 + 시뮬 속도 표시, 초기화 시 기록 경로 삭제 + 시뮬 종료 시 종료 위치 유지 + Esri 위성 지도에서 원형 나침반 흰색 + 터치 시에만 주소 5초 표시 + 시뮬 중 로드/초기화 비활성화 + 시뮬 속도 '-' 표시 + 시뮬 시작/종료 메세지 삭제 + 시뮬 중 고도 상세창 그래프에 시뮬 위치 점 표시 + 고도/날씨 상세창 반투명 + 상세창 농도 상향 + 시뮬 시작/종료 알림음 + 기록 경로 선 자홍색+흰 테두리 + 고도 상세창에 작은 고도 위치 점 표시 + 시뮬 역방향/위치 점프 + 십자선 위치부터 시뮬 시작 메뉴 + 시뮬 메뉴 구분선 + 잠금 중 위치 반영 5초 간격 + 종료·저장 결과를 상태 줄에 3초 표시 + 알림(토스트) 제거, 모든 메시지를 상태 줄에 3초 표시 + 시뮬 중 고도 상세창은 시뮬 위치만 표시 + 지도 서버 재접속·타일 자동 재요청 + 시뮬 중 화면 슬립 방지 + 지도 서버 재시작 안정화(NameError 수정) + 설정 파일(trek_config.json)을 trekker.py와 같은 폴더에서 읽음 + VWorld 키 읽기 보강·오류 표시 + 지도 선택 메뉴를 오른쪽 아이콘과 겹치지 않게 이동, 설정 파일 없음 안내 삭제 + 국토부 위성 원형 나침반 흰색, 지도 선택 목록 잘림 수정 + VWorld 없을 때 지도 선택 목록 정렬 원복 + 지도 이동·회전 시 지도 선택 창 닫기 + 에러 외 로그 기록 안 함 + 시뮬·기록 중 고도 상세 간략 보기(이름 자리에 현재 고도·남은 거리, 경사·다음 정상 강조, 높이 2/3, 지도 선택 앞으로) + Apache 2.0 라이선스·법적 제한 안내 추가 + 파일 상단에 VWorld 키 설정 방법 안내 + 종료·저장 시 다운 대응 + 비정상 종료(ui.delay 람다) 수정 + 날씨 상세창을 항상 최상위로 (v4.87)
+# SPDX-License-Identifier: Apache-2.0
 #
-# [KO] 본 소프트웨어는 Apache License, Version 2.0("라이선스")에 따라
-#      사용이 허가됩니다. 사용자는 라이선스를 준수하는 경우에 한해 본
-#      소프트웨어를 사용할 수 있으며, 라이선스 조건에 따라 복제, 수정,
-#      배포 및 상업적 이용이 가능합니다.
+# Copyright 2026 Yoseopkim
 #
-#      본 소프트웨어는 관련 법률이 요구하거나 서면으로 합의한 경우를
-#      제외하고는 어떠한 명시적 또는 묵시적 보증("있는 그대로", AS-IS)도
-#      없이 배포됩니다. 라이선스에 따른 권한과 제한을 규율하는 구체적인
-#      내용은 Apache License, Version 2.0 전문을 따르며, 본 소프트웨어의
-#      사용으로 발생하는 모든 책임과 손해에 대해 작성자는 책임을 지지
-#      않습니다.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
-# [EN] Licensed under the Apache License, Version 2.0 (the "License");
-#      you may not use this file except in compliance with the License.
-#      You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
-#          http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 #
-#      Unless required by applicable law or agreed to in writing, software
-#      distributed under the License distributed on an "AS IS" BASIS,
-#      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, EXPRESS OR IMPLIED.
-#      See the License for the specific language governing permissions and
-#      limitations under the License.
-# ==============================================================================
-
-# trekker.py - Pythonista 3용 트래킹 + 고도/상승 동적 전환 + GPX 배지 클릭 이동 + 기록 시 진행방향 자동회전 + 나침반/십자선 2초 표시 + 거리 척도 + GPX 고도 프로파일 + 기록 중 5초 간격 진행방향 회전 + 회전 방향 보정 + GPS 노이즈 제거/곡선 보정 + 상단 방위 바 + 상단 UI 높이 축소 + 고도 그래프 위치 점 + 방위 바 갱신 안정화 + 십자선 이동 시 표시/굵게 + 기본 지도 Topo(온라인) + 고도 상세 패널 + 기록 중 30초 생존 신호음 + HTTP 서버 오류 방어 + 지도 캐시 개선/오프라인 미리받기 + 클립보드 삭제 & 2초 숨김 & 툴팁 1.5배 띄우기 + 날씨 조회 안정화/날씨 로그 + 방위 바 양끝 흐림 + 풍향/풍속 표시 및 상세 정보창 + 날씨 1분 갱신 + 잠금 중 기록/진행방향만 수행 + 지도 터치 십자선/잠금 중 절전 + 종료 시 지도 회전/원형 나침반 없음 + 기록 중 경량 모드(진행 방향 외 갱신 지연) + 빠른 회전 시 다운 방지 + 잠금 중 부채꼴 방향 UI 숨김 + GPX 따라가기 시뮬레이션(배속) + 상단 메뉴 '저장' 제거 + 시뮬레이션 중 거리·시간 표시 + 초기화 시 시뮬레이션 거리·시간 초기화 + 시뮬/기록 동시 실행 방지 + 토스트 잘림 수정, 시뮬 나침반=진행방향 위로 + 시뮬 나침반 해제 시 지도 방향 유지 + 시뮬 중 나침반 배율 유지 + 시뮬 중 상단 고도70:GPX명30 비율 + 풍향 화살표 풍속별 색상 + 좌표 아래 주소 표시 + 시뮬/나침반 회전 다운 방지 + 시뮬 속도 표시, 초기화 시 기록 경로 삭제 + 시뮬 종료 시 종료 위치 유지 + Esri 위성 지도에서 원형 나침반 흰색 + 터치 시에만 주소 5초 표시 + 시뮬 중 로드/초기화 비활성화 + 시뮬 속도 '-' 표시 + 시뮬 시작/종료 메세지 삭제 + 시뮬 중 고도 상세창 그래프에 시뮬 위치 점 표시 + 고도/날씨 상세창 반투명 + 상세창 농도 상향 + 시뮬 시작/종료 알림음 + 기록 경로 선 자홍색+흰 테두리 + 고도 상세창에 작은 고도 위치 점 표시 + 시뮬 역방향/위치 점프 + 십자선 위치부터 시뮬 시작 메뉴 + 시뮬 메뉴 구분선 + 잠금 중 위치 반영 5초 간격 + 종료·저장 결과를 상태 줄에 3초 표시 + 알림(토스트) 제거, 모든 메시지를 상태 줄에 3초 표시 + 시뮬 중 고도 상세창은 시뮬 위치만 표시 + 지도 서버 재접속·타일 자동 재요청 + 시뮬 중 화면 슬립 방지 + 지도 서버 재시작 안정화(NameError 수정) + 설정 파일(trek_config.json)을 trekker.py와 같은 폴더에서 읽음 + VWorld 키 읽기 보강·오류 표시 + 지도 선택 메뉴를 오른쪽 아이콘과 겹치지 않게 이동, 설정 파일 없음 안내 삭제 + 국토부 위성 원형 나침반 흰색, 지도 선택 목록 잘림 수정 + VWorld 없을 때 지도 선택 목록 정렬 원복 + 지도 이동·회전 시 지도 선택 창 닫기 (v4.78)
+# [법적 제한 안내 / Legal notice]
+# 1. 보증 없음: 이 소프트웨어는 "있는 그대로(AS IS)" 제공되며, 정확성·안정성·특정 목적 적합성을 보증하지 않습니다.
+#    저작권자는 사용으로 인한 사고·부상·데이터 손실·기타 손해에 대해 책임지지 않습니다.
+# 2. 안전: GPS 위치·고도·지도·날씨 정보에는 오차가 있을 수 있습니다. 등산·길찾기·안전 판단의 유일한 근거로
+#    사용하지 말고, 지도·나침반·현지 안내 등 다른 수단을 함께 사용하세요.
+# 3. 외부 서비스: 지도 타일·주소·날씨 데이터(OpenStreetMap, OpenTopoMap, Esri, CyclOSM, VWorld(국토교통부),
+#    Open-Meteo 등)는 각 제공처의 이용약관·저작권·출처 표시 의무를 따르며 이 라이선스에 포함되지 않습니다.
+#    API 키(예: VWorld)는 사용자가 직접 발급·관리하며 타인에게 공개하지 마세요.
+# 4. 개인정보: 날씨·주소 조회 시 현재 위치 좌표가 외부 서비스로 전송될 수 있습니다.
+#    기록한 경로(GPX)는 기기에 저장되며, 공유·공개 여부와 그 책임은 사용자에게 있습니다.
+#
+# [VWorld(국토부) 지도 키 설정 방법]
+# 1. vworld.kr 에서 오픈API 인증키를 발급받습니다.
+# 2. 이 파일(trekker.py)과 같은 폴더에 trek_config.json 파일을 만들고 아래처럼 키를 넣습니다.
+#        {"vworld_key": "발급받은-인증키"}
+# 3. 앱을 다시 실행하면 지도 선택에 "국토부 (일반)", "국토부 (위성)"이 나타납니다. (키는 시작할 때만 읽습니다)
 import ui, location, math, os, time, datetime, json, urllib.request, threading, sys, socket
 import io, zlib, struct, shutil
 import dialogs, console, sound
@@ -185,6 +188,10 @@ def dlog(msg):
     except Exception as e:
         print("Log error:", e)
 
+def ilog(msg):
+    """정보성 기록은 남기지 않는다 (에러만 기록). 다시 기록하려면 여기서 dlog(msg)를 호출하면 된다."""
+    pass
+
 def wlog(msg):
     """날씨 전용 로그: trek_weather_log.txt (WX_LOG_MAX_KB를 넘으면 .1로 넘기고 새로 시작)"""
     try:
@@ -238,7 +245,7 @@ def wx_diagnose():
         t0 = time.time()
         infos = socket.getaddrinfo(host, 443, type=socket.SOCK_STREAM)
         addrs = sorted(set(i[4][0] for i in infos))
-        wlog('진단 DNS 성공 %.2f초 %s' % (time.time() - t0, ','.join(addrs[:3])))
+        ilog('진단 DNS 성공 %.2f초 %s' % (time.time() - t0, ','.join(addrs[:3])))
     except Exception as e:
         wlog('진단 DNS 실패 (%s: %s) -> 도메인 주소를 못 찾음: 데이터/와이파이/DNS/VPN 확인' % (type(e).__name__, e))
         return
@@ -246,18 +253,18 @@ def wx_diagnose():
         t0 = time.time()
         sk = socket.create_connection((host, 443), timeout=5)
         sk.close()
-        wlog('진단 TCP 443 연결 성공 %.2f초' % (time.time() - t0))
+        ilog('진단 TCP 443 연결 성공 %.2f초' % (time.time() - t0))
     except Exception as e:
         wlog('진단 TCP 443 연결 실패 (%s: %s) -> 서버/네트워크 차단 가능성' % (type(e).__name__, e))
         return
     try:
         t0 = time.time()
         with urllib.request.urlopen('https://clients3.google.com/generate_204', timeout=5) as r:
-            wlog('진단 일반 인터넷(HTTPS) 정상 HTTP %s %.2f초 -> Open-Meteo 쪽 문제 또는 일시 오류' % (r.status, time.time() - t0))
+            ilog('진단 일반 인터넷(HTTPS) 정상 HTTP %s %.2f초 -> Open-Meteo 쪽 문제 또는 일시 오류' % (r.status, time.time() - t0))
     except Exception as e:
         wlog('진단 일반 인터넷(HTTPS) 실패 (%s: %s)' % (type(e).__name__, e))
 
-dlog("=== 트레커 앱 시작됨 (v4.36) == (+) 클립보드 삭제 & 2초 숨김 & 툴팁 1.5배 띄우기 + 날씨 조회 안정화/날씨 로그 + 방위 바 양끝 흐림 + 풍향/풍속 표시 및 상세 정보창 + 날씨 1분 갱신 + 잠금 중 기록/진행방향만 수행 + 지도 터치 십자선/잠금 중 절전")
+ilog("=== 트레커 앱 시작됨 (v4.36) == (+) 클립보드 삭제 & 2초 숨김 & 툴팁 1.5배 띄우기 + 날씨 조회 안정화/날씨 로그 + 방위 바 양끝 흐림 + 풍향/풍속 표시 및 상세 정보창 + 날씨 1분 갱신 + 잠금 중 기록/진행방향만 수행 + 지도 터치 십자선/잠금 중 절전")
 
 def write_run_mark(info):
     try:
@@ -285,15 +292,23 @@ def check_previous_crash():
 check_previous_crash()
 write_run_mark('시작 %s' % datetime.datetime.now().strftime('%m-%d %H:%M:%S'))
 
+_FAULT_FILE = None
+
 def enable_fault():
+    """치명적 오류(비정상 종료) 때 파이썬 호출 기록을 trek_debug.txt에 남긴다. 파일은 계속 열어 두어야 한다."""
+    global _FAULT_FILE
     try:
         import faulthandler
-        with open(LOG_PATH, 'a', encoding='utf-8') as f:
-            faulthandler.enable(file=f)
+        _FAULT_FILE = open(LOG_PATH, 'a', encoding='utf-8')
+        faulthandler.enable(file=_FAULT_FILE, all_threads=True)
     except Exception:
         pass
 
+_APP_CLOSED = {'v': False}      # 화면이 닫힌 뒤에는 메인 스레드 예약 실행을 만들지 않기 위한 표시
+
 def run_on_main(fn):
+    if _APP_CLOSED['v']:
+        return
     try:
         ui.delay(fn, 0)
     except Exception:
@@ -539,6 +554,20 @@ MAP_HTML = """<!DOCTYPE html><html><head>
     border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.6);
   }
   #elev-detail.show { display: flex; }
+  /* 시뮬레이션·경로 기록 중 간략 보기: 상단 버튼 줄 아래에서 시작, 높이는 (십자선 위까지 높이)의 2/3 */
+  #elev-detail.compact { top: 76px; bottom: auto; height: calc((50% - 100px) * 0.667); max-height: none; }
+  #elev-detail.compact #ed-splits-wrap, #elev-detail.compact #ed-stats { display: none; }
+  #elev-detail.compact #ed-head { padding: 4px 6px 0 8px; }
+  #elev-detail.compact #ed-title { display: flex; gap: 4px; overflow: visible; white-space: normal; }
+  #elev-detail.compact #ed-title .ed-stat { flex: 1 1 0; min-width: 0; padding: 2px 2px; }
+  #elev-detail.compact #ed-title .ed-stat .k { font-size: 9px; }
+  #elev-detail.compact #ed-title .ed-stat .v { font-size: 14px; color: #ffffff; }
+  #elev-detail.compact #ed-close { width: 26px; height: 26px; border-radius: 13px; font-size: 13px; }
+  #elev-detail.compact #ed-readout { display: flex; align-items: baseline; gap: 10px; font-size: 14px; font-weight: 700;
+    padding: 2px 10px 0; min-height: 24px; white-space: nowrap; overflow: hidden; }
+  #elev-detail.compact #ed-readout .g { font-size: 19px; font-weight: 800; }
+  #elev-detail.compact #ed-chart { flex: 1 1 0; min-height: 36px; height: auto; margin: 0 6px 3px; overflow: hidden; touch-action: auto; }
+  body.ed-compact #layer-container { z-index: 100001; }    /* 간략 보기 중에도 지도 선택 창이 앞에 보이게 */
   #ed-head { display: flex; align-items: center; padding: 8px 8px 4px 12px; flex: 0 0 auto; }
   #ed-title { flex: 1; min-width: 0; font-size: 14px; font-weight: 800; color: #0a84ff;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -573,7 +602,7 @@ MAP_HTML = """<!DOCTYPE html><html><head>
 
   /* 날씨 상세 정보창 (풍향/풍속 아이콘을 누르면 열리고 ✕로 닫음) */
   #wx-detail {
-    position: absolute; left: 8px; right: 8px; top: 34px; z-index: 100000;
+    position: absolute; left: 8px; right: 8px; top: 34px; z-index: 100003;
     display: none; flex-direction: column; color: #ffffff;
     max-height: calc(100% - 52px); overflow: hidden;
     background: rgba(28,28,30,0.88); border: 1px solid rgba(255,255,255,0.18);
@@ -763,8 +792,11 @@ var map = L.map('map', {
 var proxyBase = 'http://127.0.0.1:' + PORT + '/proxy/';
 var vworldKey = '__VWORLD_KEY__';
 
-var tileErrCount = 0, tileRetryDelay = 6000, tileRetryTimer = null;
+var tileErrCount = 0, tileRetryDelay = 6000, tileRetryTimer = null, lastBearingAt = 0;
+try { var _sb = map.setBearing; if (_sb) map.setBearing = function() { lastBearingAt = Date.now(); return _sb.apply(this, arguments); }; } catch (e) {}
 function retryTiles() {                 // 현재 지도 타일을 모두 다시 요청 (저장된 타일은 즉시, 나머지는 서버에서 다시 받음)
+  if (isRecording || simOn) return;      // 기록·시뮬레이션 중(지도 자동 회전 중)에는 부하가 커서 하지 않음
+  if (Date.now() - lastBearingAt < 8000) { tileErrCount++; scheduleTileRetry(); return; }   // 지도를 막 회전했으면 잠시 뒤에
   try { if (currentLayer && map.hasLayer(currentLayer)) currentLayer.redraw(); } catch (e) {}
 }
 function scheduleTileRetry() {          // 타일 불러오기 오류가 나면 점점 간격을 늘리며 자동 재시도
@@ -1343,11 +1375,12 @@ var animCurrentLat = 0, animCurrentLon = 0;
 var isAnimating = false;
 
 var simOn = false, simFollow = false;
-var simFrac = null, edTouched = false, curFrac = null;     // 시뮬레이션 진행 비율(0~1), 고도 상세 그래프를 손으로 짚었는지
+var simFrac = null, edTouched = false, curFrac = null, recFrac = null;     // 시뮬레이션 진행 비율(0~1), 고도 상세 그래프를 손으로 짚었는지
 function setSimMode(on, lat, lon) {
   simOn = !!on;
   simFollow = !!on;
   simFrac = on ? 0 : null;
+  applyEdMode();
   updateEdCur();
   updateEdSim();
   if (on) document.body.classList.add('sim-on');
@@ -1370,9 +1403,12 @@ function simJump(lat, lon) {
 }
 
 function updateMap(lat, lon, pts, rec) {
+  var wasRec = isRecording;
   isRecording = !!rec;
+  if (wasRec !== isRecording) { recFrac = null; recLastS = null; recMiss = 0; applyEdMode(); }
   lastLat = lat;
   lastLon = lon;
+  if (isRecording) updateRecProgress();
   animTargetLat = lat;
   animTargetLon = lon;
 
@@ -1486,6 +1522,7 @@ function setGpxData(pts) {
   }
   gpxTotal = gpxPts.length ? gpxCum[gpxCum.length - 1] : 0;
   projZoom = null;
+  recLastS = null; recMiss = 0; recFrac = null;
   if (!gpxPts.length) elevProf = null;
   updateElevCursor();
 }
@@ -1706,6 +1743,9 @@ function openElevDetail() {
   var p = document.getElementById('elev-detail');
   if (!p) return;
   p.classList.add('show');
+  p.classList.toggle('compact', edIsCompact());
+  if (isRecording) recFrac = computeRecFrac();
+  syncEdBodyClass();
   edTouched = false;
   buildElevDetail();
   drawElevChart();
@@ -1715,10 +1755,129 @@ function closeElevDetail(e) {
   if (e) { e.preventDefault(); e.stopPropagation(); }
   var p = document.getElementById('elev-detail');
   if (p) p.classList.remove('show');
+  syncEdBodyClass();
+}
+
+// ---- 시뮬레이션·경로 기록 중에는 진행에 필요한 정보만 담은 간략 보기 ----
+function edIsCompact() { return simOn || isRecording; }
+function edProgM() {                       // 현재 진행 위치(경로 시작에서의 거리 m), 없으면 null
+  var d = elevDetail;
+  if (!d || !d.prof || d.prof.length < 2) return null;
+  var tot = d.dist || d.prof[d.prof.length - 1][0] || 1;
+  if (simOn && simFrac !== null) return Math.max(0, Math.min(1, simFrac)) * tot;
+  if (isRecording && recFrac !== null) return Math.max(0, Math.min(1, recFrac)) * tot;
+  return null;
+}
+function syncEdBodyClass() {
+  var p = document.getElementById('elev-detail');
+  document.body.classList.toggle('ed-compact', !!(p && p.classList.contains('show') && p.classList.contains('compact')));
+}
+function applyEdMode() {
+  var p = document.getElementById('elev-detail');
+  if (!p) return;
+  p.classList.toggle('compact', edIsCompact());
+  if (isRecording && p.classList.contains('show')) recFrac = computeRecFrac();
+  if (p.classList.contains('show') && elevDetail) { buildElevDetail(); drawElevChart(); }
+  syncEdBodyClass();
+}
+function refreshEdCompact() {              // 진행 위치가 바뀔 때마다 간략 보기를 새로 그림
+  var p = document.getElementById('elev-detail');
+  if (!p || !p.classList.contains('show') || !p.classList.contains('compact') || !elevDetail) return false;
+  buildElevDetail();
+  drawElevChart();
+  return true;
+}
+var recLastS = null, recMiss = 0;
+function lowerBound(arr, v) { var lo = 0, hi = arr.length; while (lo < hi) { var mid = (lo + hi) >> 1; if (arr[mid] < v) lo = mid + 1; else hi = mid; } return lo; }
+function computeRecFrac() {                // 경로 기록 중 현재 위치가 GPX 경로의 어디쯤인지(0~1), 200m 넘게 벗어나면 null
+  if (gpxPts.length < 2 || !(gpxTotal > 0)) return null;
+  var n = gpxPts.length, i0 = 0, i1 = n - 2;
+  if (recLastS !== null && recMiss < 3) {  // 직전 위치 주변만 먼저 검사
+    i0 = Math.max(0, lowerBound(gpxCum, recLastS - 1500) - 1);
+    i1 = Math.min(n - 2, lowerBound(gpxCum, recLastS + 3000));
+    if (i1 < i0) { i0 = 0; i1 = n - 2; }
+  }
+  var kx = Math.cos(lastLat * Math.PI / 180) * 111320, ky = 110540;
+  var best = Infinity, bi = -1, bu = 0, bd2 = 0;
+  for (var i = i0; i <= i1; i++) {
+    var ax = (gpxPts[i][1] - lastLon) * kx, ay = (gpxPts[i][0] - lastLat) * ky;
+    var bx = (gpxPts[i + 1][1] - lastLon) * kx, by = (gpxPts[i + 1][0] - lastLat) * ky;
+    var dx = bx - ax, dy = by - ay, l2 = dx * dx + dy * dy;
+    var u = l2 > 0 ? Math.max(0, Math.min(1, -(ax * dx + ay * dy) / l2)) : 0;
+    var qx = ax + u * dx, qy = ay + u * dy, d2 = qx * qx + qy * qy, sc = d2;
+    if (recLastS !== null) {                // 같은 길을 왕복하는 경로에서 진행 방향을 따라가도록 앞쪽을 약간 유리하게
+      var dl = gpxCum[i] - recLastS, w = dl >= 0 ? 0.02 : 0.06;
+      sc += (dl * w) * (dl * w);
+    }
+    if (sc < best) { best = sc; bi = i; bu = u; bd2 = d2; }
+  }
+  if (bi < 0 || Math.sqrt(bd2) > 200) { recMiss++; return null; }
+  recMiss = 0;
+  recLastS = gpxCum[bi] + bu * (gpxCum[bi + 1] - gpxCum[bi]);
+  return recLastS / gpxTotal;
+}
+function updateRecProgress() {             // 간략 보기가 열려 있을 때만 계산 (평소에는 아무 일도 하지 않음)
+  var p = document.getElementById('elev-detail');
+  if (!p || !p.classList.contains('show') || !p.classList.contains('compact')) return;
+  recFrac = computeRecFrac();
+  refreshEdCompact();
+}
+function nextExtreme(prof, m) {            // 앞으로 처음 만나는 정상(고점) 또는 저점 (20m 이상 오르내림)
+  var n = prof.length, TH = 20, i = 0;
+  while (i < n && prof[i][0] <= m) i++;
+  if (i >= n) return null;
+  var e0 = profAt(prof, m), hi = e0, lo = e0, hiD = m, loD = m;
+  for (; i < n; i++) {
+    var e = prof[i][1], dd = prof[i][0];
+    if (e > hi) { hi = e; hiD = dd; }
+    if (e < lo) { lo = e; loD = dd; }
+    if (hi - e0 >= TH && hi - e >= TH) return {peak: true, d: hiD, e: hi};
+    if (e0 - lo >= TH && e - lo >= TH) return {peak: false, d: loD, e: lo};
+  }
+  if (hi - e0 >= TH) return {peak: true, d: hiD, e: hi};
+  if (e0 - lo >= TH) return {peak: false, d: loD, e: lo};
+  return null;
+}
+function buildEdCompact(d) {
+  var m = edProgM(), prof = d.prof, tot = d.dist || prof[prof.length - 1][0] || 1;
+  var cells, txt;
+  if (m === null) {
+    cells = [['현재 고도', '-'], ['남은 거리', '-'], ['남은 상승', '-'], ['남은 하강', '-']];
+    txt = '<span>' + (isRecording ? '경로에서 벗어나 있어요 (진행 위치 없음)' : '진행 위치를 기다리는 중…') + '</span>';
+  } else {
+    var e = profAt(prof, m), rg = 0, rl = 0, sp = d.splits || [];
+    for (var j = 0; j < sp.length; j++) {            // 남은 상승·하강: 구간별 값을 현재 위치 기준으로 합산
+      var s0 = sp[j][0], s1 = sp[j][1];
+      if (s1 <= m) continue;
+      var f = s0 >= m ? 1 : (s1 - m) / Math.max(s1 - s0, 1);
+      rg += sp[j][2] * f; rl += sp[j][3] * f;
+    }
+    cells = [['현재 고도', fmtInt(e) + ' m'], ['남은 거리', kmStr(Math.max(0, tot - m)) + ' km'],
+             ['남은 상승', '+' + fmtInt(rg) + ' m'], ['남은 하강', '−' + fmtInt(rl) + ' m']];
+    var a = m, b = Math.min(tot, m + 150);           // 앞 150m 구간의 경사
+    var grade = b > a ? (profAt(prof, b) - profAt(prof, a)) / (b - a) * 100 : 0;
+    var col = grade > 0 ? '#ff9f0a' : (grade < 0 ? '#5ac8fa' : '#d1d1d6');
+    var ex = nextExtreme(prof, m);
+    txt = '<span class="g" style="color:' + col + ';">' + (grade > 0 ? '+' : '') + grade.toFixed(1) + '%</span>';
+    if (ex) {
+      var df = Math.round(ex.e - e);
+      txt += '<span>' + (ex.peak ? '⛰ 다음 정상 ' : '⬇ 다음 저점 ') + kmStr(ex.d - m) + 'km · ' + fmtInt(ex.e) + 'm ('
+          + (df > 0 ? '+' : '−') + Math.abs(df) + 'm)</span>';
+    } else {
+      txt += '<span>🏁 도착까지 ' + kmStr(Math.max(0, tot - m)) + 'km</span>';
+    }
+  }
+  var html = '';
+  for (var i = 0; i < cells.length; i++) {           // GPX 이름 자리에 현재 고도·남은 거리 등을 표시
+    html += '<div class="ed-stat"><div class="k">' + cells[i][0] + '</div><div class="v">' + cells[i][1] + '</div></div>';
+  }
+  document.getElementById('ed-title').innerHTML = html;
+  document.getElementById('ed-readout').innerHTML = txt;
 }
 
 function buildElevDetail() {
   var d = elevDetail;
+  if (edIsCompact()) { buildEdCompact(d); return; }
   document.getElementById('ed-title').innerText = d.name || 'GPX';
   var items = [
     ['거리', kmStr(d.dist) + ' km'],
@@ -1751,19 +1910,35 @@ function buildElevDetail() {
 function drawElevChart() {
   var d = elevDetail, box = document.getElementById('ed-chart');
   if (!d || !box || !d.prof || d.prof.length < 2) return;
-  var W = box.clientWidth || 320, H = box.clientHeight || 170;
-  var ml = 42, mr = 8, mt = 10, mb = 20;
-  var prof = d.prof, minE = Infinity, maxE = -Infinity, i;
-  for (i = 0; i < prof.length; i++) {
-    if (prof[i][1] < minE) minE = prof[i][1];
-    if (prof[i][1] > maxE) maxE = prof[i][1];
+  var compact = edIsCompact();
+  var W = box.clientWidth || 320, H = box.clientHeight || (compact ? 110 : 170);
+  var ml = compact ? 34 : 42, mr = compact ? 6 : 8, mt = compact ? 6 : 10, mb = compact ? 16 : 20;
+  var prof = d.prof, i;
+  var total = d.dist || prof[prof.length - 1][0] || 1;
+  // 표시 구간: 보통은 전체 경로, 간략 보기에서는 현재 위치 앞뒤 약 4km만 확대해서 표시
+  var a0 = 0, b0 = total, pm = compact ? edProgM() : null;
+  if (compact && pm !== null) {
+    var L = Math.min(4000, total);
+    a0 = pm - 600; b0 = a0 + L;
+    if (a0 < 0) { a0 = 0; b0 = L; }
+    if (b0 > total) { b0 = total; a0 = Math.max(0, total - L); }
   }
-  var ystep = niceStep(Math.max(maxE - minE, 20), 4);
+  var pts = [[a0, profAt(prof, a0)]];
+  for (i = 0; i < prof.length; i++) {
+    if (prof[i][0] > a0 && prof[i][0] < b0) pts.push(prof[i]);
+  }
+  pts.push([b0, profAt(prof, b0)]);
+  var minE = Infinity, maxE = -Infinity;
+  for (i = 0; i < pts.length; i++) {
+    if (pts[i][1] < minE) minE = pts[i][1];
+    if (pts[i][1] > maxE) maxE = pts[i][1];
+  }
+  var ystep = niceStep(Math.max(maxE - minE, 20), compact ? 3 : 4);
   var y0 = Math.floor(minE / ystep) * ystep, y1 = Math.ceil(maxE / ystep) * ystep;
   if (y1 - y0 < ystep) y1 = y0 + ystep;
-  var total = d.dist || prof[prof.length - 1][0] || 1;
   var pw = W - ml - mr, ph = H - mt - mb;
-  var X = function(m) { return ml + m / total * pw; };
+  var span = Math.max(b0 - a0, 1);
+  var X = function(m) { return ml + (m - a0) / span * pw; };
   var Y = function(e) { return mt + (1 - (e - y0) / (y1 - y0)) * ph; };
 
   var s = '<svg width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" style="display:block">';
@@ -1775,22 +1950,21 @@ function drawElevChart() {
     s += '<line x1="' + ml + '" y1="' + yy.toFixed(1) + '" x2="' + (W - mr) + '" y2="' + yy.toFixed(1)
        + '" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>';
     s += '<text x="' + (ml - 5) + '" y="' + (yy + 3.5).toFixed(1)
-       + '" font-size="10" fill="#8e8e93" text-anchor="end">' + Math.round(v) + '</text>';
+       + '" font-size="' + (compact ? 9 : 10) + '" fill="#8e8e93" text-anchor="end">' + Math.round(v) + '</text>';
   }
-  var xstep = niceStep(Math.max(total / 1000, 0.2), 4);
-  for (var km = 0; km * 1000 <= total + 1; km += xstep) {
+  var xstep = niceStep(Math.max(span / 1000, 0.2), compact ? 3 : 4);
+  for (var km = Math.ceil(a0 / 1000 / xstep - 1e-9) * xstep; km * 1000 <= b0 + 1; km += xstep) {
     var xx = X(km * 1000);
     s += '<line x1="' + xx.toFixed(1) + '" y1="' + mt + '" x2="' + xx.toFixed(1) + '" y2="' + (H - mb)
        + '" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>';
-    s += '<text x="' + xx.toFixed(1) + '" y="' + (H - 5)
-       + '" font-size="10" fill="#8e8e93" text-anchor="middle">' + String(+km.toFixed(2)) + 'km</text>';
+    s += '<text x="' + xx.toFixed(1) + '" y="' + (H - 4)
+       + '" font-size="' + (compact ? 9 : 10) + '" fill="#8e8e93" text-anchor="middle">' + String(+km.toFixed(2)) + 'km</text>';
   }
   var line = '';
-  for (i = 0; i < prof.length; i++) {
-    line += (i ? 'L' : 'M') + X(prof[i][0]).toFixed(1) + ',' + Y(prof[i][1]).toFixed(1);
+  for (i = 0; i < pts.length; i++) {
+    line += (i ? 'L' : 'M') + X(pts[i][0]).toFixed(1) + ',' + Y(pts[i][1]).toFixed(1);
   }
-  var area = line + 'L' + X(prof[prof.length - 1][0]).toFixed(1) + ',' + (H - mb)
-           + 'L' + X(prof[0][0]).toFixed(1) + ',' + (H - mb) + 'Z';
+  var area = line + 'L' + X(b0).toFixed(1) + ',' + (H - mb) + 'L' + X(a0).toFixed(1) + ',' + (H - mb) + 'Z';
   s += '<path d="' + area + '" fill="url(#edg)"/>';
   s += '<path d="' + line + '" fill="none" stroke="#e8643c" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
   s += '<line id="ed-pos-line" x1="0" y1="' + mt + '" x2="0" y2="' + (H - mb)
@@ -1804,7 +1978,7 @@ function drawElevChart() {
   s += '<circle id="ed-cur-dot" cx="0" cy="0" r="5" fill="#ffffff" stroke="#0a84ff" stroke-width="2" visibility="hidden"/>';
   s += '</svg>';
   box.innerHTML = s;
-  edGeom = {W: W, H: H, ml: ml, mr: mr, mt: mt, mb: mb, total: total, X: X, Y: Y};
+  edGeom = {W: W, H: H, ml: ml, mr: mr, mt: mt, mb: mb, total: total, a: a0, b: b0, X: X, Y: Y};
   updateEdCur();
   updateEdSim();
 }
@@ -1815,7 +1989,7 @@ function updateEdCur() {
   if (!ln || !dt || !pn || !pn.classList.contains('show')) return;
   var g = edGeom, d = elevDetail;
   // 시뮬레이션 진행 중에는 십자선 위치 대신 시뮬 진행 위치(초록)만 표시
-  if (curFrac === null || (simOn && simFrac !== null) || !g || !d || !d.prof || d.prof.length < 2) {
+  if (curFrac === null || edIsCompact() || !g || !d || !d.prof || d.prof.length < 2) {
     ln.setAttribute('visibility', 'hidden');
     dt.setAttribute('visibility', 'hidden');
     return;
@@ -1840,17 +2014,17 @@ function updateEdSim() {
   var pn = document.getElementById('elev-detail');
   if (!ln || !dt || !pn || !pn.classList.contains('show')) return;
   var g = edGeom, d = elevDetail;
-  if (!simOn || simFrac === null || !g || !d || !d.prof || d.prof.length < 2) {
+  var m = edProgM();          // 시뮬레이션 또는 경로 기록 중 GPX 위 진행 위치(m)
+  if (m === null || !g || !d || !d.prof || d.prof.length < 2 || m < g.a - 1 || m > g.b + 1) {
     ln.setAttribute('visibility', 'hidden');
     dt.setAttribute('visibility', 'hidden');
     return;
   }
-  var m = Math.max(0, Math.min(1, simFrac)) * g.total;
   var e = profAt(d.prof, m);
   var x = g.X(m).toFixed(1);
   ln.setAttribute('x1', x); ln.setAttribute('x2', x); ln.setAttribute('visibility', 'visible');
   dt.setAttribute('cx', x); dt.setAttribute('cy', g.Y(e).toFixed(1)); dt.setAttribute('visibility', 'visible');
-  if (!edTouched) {
+  if (!edTouched && !edIsCompact()) {
     var win = Math.max(g.total / 150, 60);
     var a = Math.max(0, m - win / 2), b = Math.min(g.total, m + win / 2);
     var grade = b > a ? (profAt(d.prof, b) - profAt(d.prof, a)) / (b - a) * 100 : 0;
@@ -1861,16 +2035,16 @@ function updateEdSim() {
 }
 function setSimElevPos(f) {
   simFrac = f;
-  updateEdSim();
+  if (!refreshEdCompact()) updateEdSim();
 }
 
 function edPoint(clientX) {
   var g = edGeom, d = elevDetail;
-  if (!g || !d) return;
+  if (!g || !d || edIsCompact()) return;
   edTouched = true;
   var box = document.getElementById('ed-chart');
   var r = box.getBoundingClientRect();
-  var m = (clientX - r.left - g.ml) / (g.W - g.ml - g.mr) * g.total;
+  var m = g.a + (clientX - r.left - g.ml) / (g.W - g.ml - g.mr) * (g.b - g.a);
   m = Math.max(0, Math.min(g.total, m));
   var e = profAt(d.prof, m);
   var win = Math.max(g.total / 150, 60);
@@ -2384,7 +2558,7 @@ def _wx_get_json(url, label, tries, timeout, deadline):
             except ValueError:
                 snippet = raw[:80].decode('utf-8', 'replace').replace('\n', ' ')
                 raise ValueError('JSON이 아닌 응답 (와이파이 로그인 페이지/차단?): %s' % snippet)
-            wlog('%s 응답 성공 (%d/%d) HTTP %s %.2f초 %dB' % (label, n, tries, status, time.time() - t0, len(raw)))
+            ilog('%s 응답 성공 (%d/%d) HTTP %s %.2f초 %dB' % (label, n, tries, status, time.time() - t0, len(raw)))
             return data
         except urllib.error.HTTPError as e:
             body = ''
@@ -2431,7 +2605,7 @@ def fetch_weather(lat, lon, source='GPS', tries=WX_TRIES, timeout=WX_TIMEOUT, bu
     실패하면 예외. 풍속 단위는 m/s. 모든 과정을 날씨 로그에 남긴다."""
     t_all = time.time()
     deadline = t_all + budget
-    wlog('조회 시작 [%s] %.4f, %.4f' % (source, lat, lon))
+    ilog('조회 시작 [%s] %.4f, %.4f' % (source, lat, lon))
     aq = {}
 
     def aq_worker():
@@ -2490,7 +2664,7 @@ def fetch_weather(lat, lon, source='GPS', tries=WX_TRIES, timeout=WX_TIMEOUT, bu
             'pressure': cur.get('pressure_msl'), 'cloud': cur.get('cloud_cover'),
             'hourly': hourly,
         }
-        wlog('결과 성공 [%s] 기온 %.1f도 코드 %d %s 바람 %s m/s %s° 미세먼지 %s / 시간별 %d개 / 총 %.2f초' % (
+        ilog('결과 성공 [%s] 기온 %.1f도 코드 %d %s 바람 %s m/s %s° 미세먼지 %s / 시간별 %d개 / 총 %.2f초' % (
             source, res['t'], res['code'], '낮' if res['is_day'] else '밤', res['wind'], res['wdir'], pm10,
             len(hourly), time.time() - t_all))
         return res
@@ -3138,7 +3312,7 @@ def write_gpx(points, path, name, distance, gain, elapsed):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, 'w', encoding='utf-8') as f:
         f.write('\n'.join(lines))
-    dlog("GPX 파일 저장됨: %s" % path)
+    ilog("GPX 파일 저장됨: %s" % path)
 
 def read_gpx_points(path):
     try:
@@ -3160,7 +3334,7 @@ def read_gpx_points(path):
                             break
                     pts.append([float(lat), float(lon)])
                     eles.append(ele)
-        dlog("GPX 파일 로드 성공: %s (%d개 포인트)" % (path, len(pts)))
+        ilog("GPX 파일 로드 성공: %s (%d개 포인트)" % (path, len(pts)))
         return pts, eles
     except Exception as e:
         dlog("GPX 파일 읽기 오류: %s" % e)
@@ -3371,26 +3545,26 @@ class Tracker:
         self.start_ts = self.now()
         self.seg_start = self.start_ts
         self.state = 'recording'
-        dlog("트래킹 시작됨")
+        ilog("트래킹 시작됨")
 
     def pause(self):
         if self.seg_start:
             self.elapsed += self.now() - self.seg_start
         self.seg_start = None
         self.state = 'paused'
-        dlog("트래킹 일시정지")
+        ilog("트래킹 일시정지")
 
     def resume(self):
         self.seg_start = self.now()
         self.state = 'recording'
-        dlog("트래킹 재개")
+        ilog("트래킹 재개")
 
     def stop(self):
         if self.state == 'recording' and self.seg_start:
             self.elapsed += self.now() - self.seg_start
         self.seg_start = None
         self.state = 'idle'
-        dlog("트래킹 종료")
+        ilog("트래킹 종료")
 
     def total_elapsed(self):
         e = self.elapsed
@@ -3425,7 +3599,7 @@ class Tracker:
                 self.jump_cnt = 1
             self.jump_last = (lat, lon)
             if self.jump_cnt >= JUMP_CONFIRM:
-                dlog("GPS 큰 이동 확정 (%.0fm), 필터 재시작" % d_prev)
+                ilog("GPS 큰 이동 확정 (%.0fm), 필터 재시작" % d_prev)
                 self._kf_reset(lat, lon, acc, now)
                 return True
         else:
@@ -3637,6 +3811,8 @@ class TrekApp(ui.View):
         self.server = None
         self.server_thread = None
         self.server_fail_n = 0
+        _APP_CLOSED['v'] = False
+        self.pushed_pts_len = -1          # 마지막으로 지도에 보낸 기록 점 개수 (바뀐 경우에만 전체 경로 전송)
 
         self.heading_running = False
         self.has_h = False
@@ -3692,7 +3868,7 @@ class TrekApp(ui.View):
         _c = wx_cache_load()            # 저장된 마지막 날씨가 있으면 우선 흐리게 보여 주고 새로 조회
         if _c:
             self.wx_last = _c
-            wlog('저장된 날씨 불러옴 (%d분 전, %.1f도)' % ((time.time() - float(_c['ts'])) / 60, _c['t']))
+            ilog('저장된 날씨 불러옴 (%d분 전, %.1f도)' % ((time.time() - float(_c['ts'])) / 60, _c['t']))
 
         self.is_locked = False
         self.lock_tap_count = 0
@@ -3772,7 +3948,7 @@ class TrekApp(ui.View):
 
         self.status_hold_until = 0.0     # 상태 줄 메시지 고정 해제 시각 (그 전까지는 GPS 상태 갱신이 덮어쓰지 않음)
         self.status_hold_text = ''
-        self.status_hold_token = 0
+        self.status_hold_color = '#8e8e93'
         self.tile_retry_at = 0.0          # 지도 타일 재요청 가능 시각
         self.tile_retry_n = 0
 
@@ -3798,7 +3974,7 @@ class TrekApp(ui.View):
             self.add_subview(self.lock_view)
             self.btn_lock.title = '해제'
             self.status.text = '화면이 잠겼습니다 (3번 빠르게 터치시 해제)'
-            dlog("잠금: 경로 기록 + 진행 방향 계산(%d초)·지도 갱신(%d초)만 수행, 방위 바·자동저장·날씨·고도 조회·네트워크 점검·이탈 경고 일시 정지" % (LOCK_HEADING_SEC, LOCK_MAP_SEC))
+            ilog("잠금: 경로 기록 + 진행 방향 계산(%d초)·지도 갱신(%d초)만 수행, 방위 바·자동저장·날씨·고도 조회·네트워크 점검·이탈 경고 일시 정지" % (LOCK_HEADING_SEC, LOCK_MAP_SEC))
         else:
             self.unlock_ui()
             self.status.text = '잠금이 해제되었습니다'
@@ -3815,7 +3991,7 @@ class TrekApp(ui.View):
 
     def on_unlocked(self):
         """잠금 해제: 일시 정지했던 작업을 바로 따라잡는다 (날씨 즉시 갱신, 화면 점검, 중심 고도)."""
-        dlog("잠금 해제: 일시 정지했던 작업 재개")
+        ilog("잠금 해제: 일시 정지했던 작업 재개")
         try:
             self.wx_verify_ts = 0.0
             if self.wx_last:
@@ -3865,7 +4041,7 @@ class TrekApp(ui.View):
             if self.server_fail_n < 2:
                 return False
         self.server_fail_n = 0
-        dlog("지도 서버 응답 없음 -> 같은 포트로 재시작")
+        ilog("지도 서버 응답 없음 -> 같은 포트로 재시작")
         try:
             old, self.server = self.server, None
             self._shutdown_http_server(old)         # 이전 서버 스레드까지 확실히 정지
@@ -3876,7 +4052,7 @@ class TrekApp(ui.View):
             th = threading.Thread(target=srv.serve_forever, daemon=True)
             th.start()
             self.server_thread = th
-            dlog("지도 서버 재시작 완료 (포트 %d)" % SERVER_PORT)
+            ilog("지도 서버 재시작 완료 (포트 %d)" % SERVER_PORT)
             return True
         except Exception as e:
             dlog("지도 서버 재시작 실패: %s" % e)
@@ -3888,7 +4064,7 @@ class TrekApp(ui.View):
         if TILE_STATS['miss'] <= 0:
             self.tile_retry_n = 0
             return
-        if (not online) or self.is_locked or now < self.tile_retry_at:
+        if (not online) or self.is_locked or self.sim_active or self.T.state == 'recording' or now < self.tile_retry_at:
             return
         TILE_STATS['miss'] = 0
         self.tile_retry_n += 1
@@ -3905,7 +4081,7 @@ class TrekApp(ui.View):
         self.js_busy = True
         try:
             self.web.evaluate_javascript('retryTiles();')
-            dlog("지도 타일 재요청 (%d차)" % self.tile_retry_n)
+            ilog("지도 타일 재요청 (%d차)" % self.tile_retry_n)
         except Exception as e:
             dlog("지도 타일 재요청 오류: %s" % e)
         finally:
@@ -3917,7 +4093,7 @@ class TrekApp(ui.View):
         while not self.closed:
             now = time.time()
             if now - last_loop > 20.0:      # 루프가 오래 멈췄다 = 앱이 백그라운드에서 쉬다 돌아옴 -> 지도 재접속
-                dlog("앱 복귀 감지 (%.0f초 정지) -> 지도 재접속 시도" % (now - last_loop))
+                ilog("앱 복귀 감지 (%.0f초 정지) -> 지도 재접속 시도" % (now - last_loop))
                 NET_STATE['fail_until'] = 0.0
                 self.ensure_server()
                 self.tile_retry_at = 0.0
@@ -3965,7 +4141,7 @@ class TrekApp(ui.View):
             th.start()
             self.server_thread = th
             self.web.load_url('http://127.0.0.1:%d/' % SERVER_PORT)
-            dlog("HTTP 서버 안전 시작 포트: %d" % SERVER_PORT)
+            ilog("HTTP 서버 안전 시작 포트: %d" % SERVER_PORT)
         except Exception as e:
             dlog("HTTP 서버 시작 실패: %s" % e)
             print("HTTP Server Error:", e)
@@ -4173,7 +4349,7 @@ class TrekApp(ui.View):
     def _trim_cache_bg(self):
         try:
             total, count, removed = trim_tile_cache()
-            dlog("지도 캐시 %d개 %.0fMB (정리 %d개)" % (count, total / 1048576.0, removed))
+            ilog("지도 캐시 %d개 %.0fMB (정리 %d개)" % (count, total / 1048576.0, removed))
         except Exception as e:
             dlog("지도 캐시 정리 오류: %s" % e)
 
@@ -4296,7 +4472,7 @@ class TrekApp(ui.View):
         finally:
             self.prefetching = False
             self.prefetch_text = ''
-            dlog("지도 미리받기 종료: 저장 %d / 실패 %d / 대상 %d %s" % (saved, failed, total, why))
+            (dlog if failed else ilog)("지도 미리받기 종료: 저장 %d / 실패 %d / 대상 %d %s" % (saved, failed, total, why))
             msg = ('⚠️ %s (%d개 저장)' % (why, saved)) if why else ('✅ 지도 %d개 저장' % saved)
             run_on_main(self.update_title)
             run_on_main(lambda: self.show_status_msg(msg, 3.0))
@@ -4359,6 +4535,7 @@ class TrekApp(ui.View):
             if not self.sim_active:
                 T.clock_offset = 0.0
             T.start()
+            self.tile_retry_at = max(self.tile_retry_at, time.time() + 30.0)     # 시작 직후 지도 회전과 겹치지 않게 타일 재요청을 미룸
             self.track_heading = None
             self.last_autosave = time.time()
         elif T.state == 'recording':
@@ -4385,6 +4562,7 @@ class TrekApp(ui.View):
     def on_stop(self, sender):
         T = self.T
         T.stop()
+        self.tile_retry_at = max(self.tile_retry_at, time.time() + 30.0)     # 정지 직후 지도 회전 복귀와 겹치지 않게 타일 재요청을 미룸
         self.stop_keep_running()
         try:
             self.web.evaluate_javascript('autoHeading(false, true);')
@@ -4555,7 +4733,7 @@ class TrekApp(ui.View):
             if self.wx_ts and now - self.wx_ts < refresh_sec and moved_km < WX_REFRESH_MOVE_KM:
                 return
         else:
-            wlog('즉시 갱신 요청 (아이콘 클릭/잠금 해제)')
+            ilog('즉시 갱신 요청 (아이콘 클릭/잠금 해제)')
         self.wx_busy = True
         self.wx_started = now
         self.wx_gen += 1
@@ -4577,7 +4755,7 @@ class TrekApp(ui.View):
             self.wx_last = dict(res, ts=self.wx_ts, lat=lat, lon=lon)
             self.wx_applied = False
             wx_cache_save(self.wx_last)
-            dlog("날씨 수신: %.1f도, 코드 %d, 바람 %s m/s, 미세먼지 %s" % (res['t'], res['code'], res.get('wind'), str(res['pm10'])))
+            ilog("날씨 수신: %.1f도, 코드 %d, 바람 %s m/s, 미세먼지 %s" % (res['t'], res['code'], res.get('wind'), str(res['pm10'])))
             run_on_main(self.apply_weather)
         except Exception as e:
             self.wx_fail_count += 1
@@ -4590,7 +4768,7 @@ class TrekApp(ui.View):
             except Exception as e2:
                 wlog('진단 중 오류: %s' % e2)
             if self.wx_last:
-                wlog('저장된 날씨를 흐리게 표시합니다 (%d분 전 값)' % ((time.time() - float(self.wx_last['ts'])) / 60))
+                ilog('저장된 날씨를 흐리게 표시합니다 (%d분 전 값)' % ((time.time() - float(self.wx_last['ts'])) / 60))
                 self.wx_applied = False
                 run_on_main(self.apply_weather)
             else:
@@ -4616,7 +4794,7 @@ class TrekApp(ui.View):
             r = 'ERR %s' % e
         if r in ('ok', 'skip'):
             if not self.wx_applied:
-                wlog('화면 적용 %s (%.1f도, 코드 %d, 미세먼지 %s%s)' % (
+                ilog('화면 적용 %s (%.1f도, 코드 %d, 미세먼지 %s%s)' % (
                     '완료' if r == 'ok' else '생략(지도 중심 날씨 표시 중)', w['t'], w['code'], w.get('pm10'),
                     ', 오래된 값' if stale else ''))
             self.wx_applied = True
@@ -4657,9 +4835,9 @@ class TrekApp(ui.View):
                 and now - self.wx_wait_log >= 60):
             self.wx_wait_log = now
             if self.last_lat is None:
-                wlog('날씨 대기: GPS 위치를 아직 받지 못함 (위치 권한/실내/신호 확인)')
+                ilog('날씨 대기: GPS 위치를 아직 받지 못함 (위치 권한/실내/신호 확인)')
             else:
-                wlog('날씨 대기: 다음 조회까지 %d초' % max(0, self.wx_next_try - now))
+                ilog('날씨 대기: 다음 조회까지 %d초' % max(0, self.wx_next_try - now))
 
     def show_weather_log(self):
         """날씨 로그(최근 기록)를 보여 준다. 파일: Documents/treks/trek_weather_log.txt"""
@@ -4711,7 +4889,7 @@ class TrekApp(ui.View):
             pass
         info = '%s 상태=%s 점=%d 거리=%.0fm 메모리~%.0fMB' % (
             datetime.datetime.now().strftime('%m-%d %H:%M:%S'), T.state, len(T.points), T.distance, mem)
-        dlog('생존 ' + info)
+        ilog('생존 ' + info)
         write_run_mark(info)
 
     def start_keep_running(self):
@@ -4721,7 +4899,7 @@ class TrekApp(ui.View):
             ctx = background.keep_running()
             ctx.__enter__()
             self._bg_ctx = ctx
-            dlog("백그라운드 유지 시작")
+            ilog("백그라운드 유지 시작")
         except Exception as e:
             dlog("백그라운드 유지 실패: %s" % e)
 
@@ -4731,7 +4909,7 @@ class TrekApp(ui.View):
             return
         try:
             ctx.__exit__(None, None, None)
-            dlog("백그라운드 유지 종료")
+            ilog("백그라운드 유지 종료")
         except Exception as e:
             dlog("백그라운드 유지 종료 오류: %s" % e)
 
@@ -4872,7 +5050,7 @@ class TrekApp(ui.View):
             self.web.evaluate_javascript('setSimMode(true, %.6f, %.6f);' % (lat, lon))
         except Exception:
             pass
-        dlog("시뮬레이션 시작: %d배속, 경로 %.2fkm" % (self.sim_mult, sm['total'] / 1000.0))
+        ilog("시뮬레이션 시작: %d배속, 경로 %.2fkm" % (self.sim_mult, sm['total'] / 1000.0))
         self.play_live_signal()         # 시작 알림음 (기록 중 생존 신호음과 같은 소리)
         #self.show_status_msg('\U0001F9EA 시뮬레이션 %d배속' % self.sim_mult)
 
@@ -4900,7 +5078,7 @@ class TrekApp(ui.View):
             self.web.evaluate_javascript('setSimMode(false);')
         except Exception:
             pass
-        dlog("시뮬레이션 종료 (%s)" % ('경로 끝까지 완료' if done else '중지'))
+        ilog("시뮬레이션 종료 (%s)" % ('경로 끝까지 완료' if done else '중지'))
         self.play_live_signal()         # 종료 알림음 (시뮬레이션이 실제로 켜져 있다가 끝날 때만 여기까지 옴)
         #if done:
             #self.show_status_msg('\U0001F3C1 시뮬레이션 완료')
@@ -4911,13 +5089,20 @@ class TrekApp(ui.View):
     def _sim_here_rev_label(self):
         return '\U0001F4CD 십자선 위치부터 거꾸로 시작'
 
-    def sim_nearest_s(self, sm, lat, lon):
+    def sim_nearest_s(self, sm, lat, lon, hint=None, rng=None):
         """경로에서 (lat, lon)에 가장 가까운 지점까지의 경로 누적 거리(m)와, 그 지점까지 떨어진 거리(m)."""
         route, cum = self.T.gpx_route, sm['cum']
         kx = math.cos(math.radians(lat)) * 111320.0
         ky = 110540.0
         best = None
-        for i in range(len(route) - 1):
+        i_lo, i_hi = 0, len(route) - 2
+        if rng is not None:                 # 경로 거리 범위(m) 안의 구간만 검사 (기록 중 반복 계산 부하 줄이기)
+            import bisect
+            i_lo = max(0, bisect.bisect_right(cum, rng[0]) - 1)
+            i_hi = min(len(route) - 2, bisect.bisect_left(cum, rng[1]))
+            if i_hi < i_lo:
+                i_lo, i_hi = 0, len(route) - 2
+        for i in range(i_lo, i_hi + 1):
             ax, ay = (route[i][1] - lon) * kx, (route[i][0] - lat) * ky
             bx, by = (route[i + 1][1] - lon) * kx, (route[i + 1][0] - lat) * ky
             dx, dy = bx - ax, by - ay
@@ -4925,9 +5110,13 @@ class TrekApp(ui.View):
             u = max(0.0, min(1.0, -(ax * dx + ay * dy) / l2)) if l2 > 0 else 0.0
             qx, qy = ax + u * dx, ay + u * dy
             d2 = qx * qx + qy * qy
-            if best is None or d2 < best[0]:
-                best = (d2, i, u)
-        d2, i, u = best
+            score = d2
+            if hint is not None:            # 직전 진행 위치에서 멀수록 점수를 불리하게 (앞쪽 1km = 약 20m, 뒤쪽 1km = 약 60m 오차)
+                dlt = cum[i] - hint         # 같은 길로 왕복하는 경로에서 되돌아가는 쪽으로 튀지 않고 진행 방향을 따라가게 함
+                score += (dlt * (0.02 if dlt >= 0 else 0.06)) ** 2
+            if best is None or score < best[0]:
+                best = (score, i, u, d2)
+        _sc, i, u, d2 = best
         return cum[i] + u * (cum[i + 1] - cum[i]), math.sqrt(d2)
 
     def sim_start_here(self, reverse=False):
@@ -4971,7 +5160,7 @@ class TrekApp(ui.View):
         self.sim_ts = time.time()
         self.has_h = False              # 진행 방향이 180도 바뀌므로 방향 평활화를 새로 시작
         self.last_sent_h = None
-        dlog("시뮬레이션 방향: %s" % ('역방향' if self.sim_dir < 0 else '정방향'))
+        ilog("시뮬레이션 방향: %s" % ('역방향' if self.sim_dir < 0 else '정방향'))
 
     def sim_jump(self):
         """시뮬레이션 위치를 경로의 다른 지점으로 한 번에 옮긴다."""
@@ -5020,7 +5209,7 @@ class TrekApp(ui.View):
             self.web.evaluate_javascript('simJump(%.6f, %.6f);' % (lat, lon))
         except Exception:
             pass
-        dlog("시뮬레이션 점프: %.2fkm 지점" % (target / 1000.0))
+        ilog("시뮬레이션 점프: %.2fkm 지점" % (target / 1000.0))
 
     def sim_pick_speed(self):
         items = ['%d배속  (약 %.1fkm/h)' % (m, SIM_BASE_KMH * m) for m in SIM_SPEEDS]
@@ -5108,7 +5297,11 @@ class TrekApp(ui.View):
         """지도(내 위치 점·기록 경로)를 갱신한다."""
         T = self.T
         try:
-            pts_js = json.dumps([[p['lat'], p['lon']] for p in T.points])
+            n_pts = len(T.points)
+            if n_pts != self.pushed_pts_len:        # 기록 점이 늘었을 때만 전체 경로 전송 (같으면 빈 목록 = 지도 쪽은 그대로 둠)
+                pts_js = json.dumps([[p['lat'], p['lon']] for p in T.points])
+            else:
+                pts_js = '[]'
             mlat, mlon = T.filtered_pos(lat, lon)
             js = 'updateMap(%f, %f, %s, %s);' % (mlat, mlon, pts_js, 'true' if T.state == 'recording' else 'false')
             sm = getattr(self, 'sim_route', None)
@@ -5116,6 +5309,7 @@ class TrekApp(ui.View):
                 # 시뮬레이션 진행 위치를 같은 호출에 실어 보냄 (고도 상세창이 열려 있으면 그래프에 점 표시)
                 js += 'setSimElevPos(%.5f);' % max(0.0, min(1.0, self.sim_s / sm['total']))
             self.web.evaluate_javascript(js)
+            self.pushed_pts_len = n_pts
             self.last_map_refresh = time.time()
         except Exception:
             pass
@@ -5252,26 +5446,20 @@ class TrekApp(ui.View):
         """상태 줄(GPS 수신 상태 자리)에 메시지를 sec초 동안 표시한다. 그동안 GPS 상태 갱신이 덮어쓰지 않는다."""
         if color is None:               # 성공(✅·🧹)은 초록, 그 외 안내·경고는 주황
             color = '#30d158' if text[:1] in ('\u2705', '\U0001F9F9') else '#ff9f0a'
-        self.status_hold_token += 1
-        token = self.status_hold_token
-        self.status_hold_until = time.time() + sec
+        self.status_hold_until = time.time() + sec      # 만료 시각만 기록 (타이머를 만들지 않음). 색·문구 복원은 1초마다 도는 tick이 처리
         self.status_hold_text = text
+        self.status_hold_color = color
         self.status.text = text
         self.status.text_color = color
-        ui.delay(lambda: self.end_status_msg(token), sec)
-
-    def end_status_msg(self, token):
-        if token == self.status_hold_token:
-            self.status_hold_until = 0.0
-            self.status.text_color = '#8e8e93'
 
     def on_location(self, loc):
         hold = time.time() < self.status_hold_until
         try:
             self._on_location(loc)
         finally:
-            if hold:                    # 메시지 표시 중에는 GPS 상태 문구로 덮어쓰지 않음
+            if hold:                    # 메시지 표시 중에는 GPS 상태 문구·색으로 덮어쓰지 않음
                 self.status.text = self.status_hold_text
+                self.status.text_color = self.status_hold_color
 
     def _on_location(self, loc):
         T = self.T
@@ -5315,6 +5503,11 @@ class TrekApp(ui.View):
 
     def will_close(self):
         self.closed = True
+        _APP_CLOSED['v'] = True
+        try:
+            ui.cancel_delays()          # 예약돼 있던 tick·방향 갱신 등이 화면이 닫힌 뒤 실행되지 않게 취소
+        except Exception:
+            pass
         try:
             if self.T.state != 'idle' and len(self.T.points) > 1:
                 stamp = datetime.datetime.fromtimestamp(self.T.start_ts).strftime('%Y%m%d_%H%M%S')
