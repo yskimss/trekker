@@ -1,4 +1,4 @@
-# trekker.py - Pythonista 3용 트래킹 + 고도/상승 동적 전환 + GPX 배지 클릭 이동 + 기록 시 진행방향 자동회전 + 나침반/십자선 2초 표시 + 거리 척도 + GPX 고도 프로파일 + 기록 중 5초 간격 진행방향 회전 + 회전 방향 보정 + GPS 노이즈 제거/곡선 보정 + 상단 방위 바 + 상단 UI 높이 축소 + 고도 그래프 위치 점 + 방위 바 갱신 안정화 + 십자선 이동 시 표시/굵게 + 기본 지도 Topo(온라인) + 고도 상세 패널 + 기록 중 30초 생존 신호음 + HTTP 서버 오류 방어 + 지도 캐시 개선/오프라인 미리받기 + 클립보드 삭제 & 2초 숨김 & 툴팁 1.5배 띄우기 + 날씨 조회 안정화/날씨 로그 + 방위 바 양끝 흐림 + 풍향/풍속 표시 및 상세 정보창 + 날씨 1분 갱신 + 잠금 중 기록/진행방향만 수행 + 지도 터치 십자선/잠금 중 절전 + 종료 시 지도 회전/원형 나침반 없음 + 기록 중 경량 모드(진행 방향 외 갱신 지연) + 빠른 회전 시 다운 방지 + 잠금 중 부채꼴 방향 UI 숨김 + GPX 따라가기 시뮬레이션(배속) + 상단 메뉴 '저장' 제거 + 시뮬레이션 중 거리·시간 표시 + 초기화 시 시뮬레이션 거리·시간 초기화 + 시뮬/기록 동시 실행 방지 + 토스트 잘림 수정, 시뮬 나침반=진행방향 위로 + 시뮬 나침반 해제 시 지도 방향 유지 + 시뮬 중 나침반 배율 유지 + 시뮬 중 상단 고도70:GPX명30 비율 + 풍향 화살표 풍속별 색상 + 좌표 아래 주소 표시 + 시뮬/나침반 회전 다운 방지 + 시뮬 속도 표시, 초기화 시 기록 경로 삭제 + 시뮬 종료 시 종료 위치 유지 + Esri 위성 지도에서 원형 나침반 흰색 + 터치 시에만 주소 5초 표시 + 시뮬 중 로드/초기화 비활성화 + 시뮬 속도 '-' 표시 + 시뮬 시작/종료 메세지 삭제 + 시뮬 중 고도 상세창 그래프에 시뮬 위치 점 표시 + 고도/날씨 상세창 반투명 + 상세창 농도 상향 + 시뮬 시작/종료 알림음 + 기록 경로 선 자홍색+흰 테두리 + 고도 상세창에 작은 고도 위치 점 표시 + 시뮬 역방향/위치 점프 + 십자선 위치부터 시뮬 시작 메뉴 + 시뮬 메뉴 구분선 + 잠금 중 위치 반영 5초 간격 + 종료·저장 결과를 상태 줄에 3초 표시 + 알림(토스트) 제거, 모든 메시지를 상태 줄에 3초 표시 + 시뮬 중 고도 상세창은 시뮬 위치만 표시 + 지도 서버 재접속·타일 자동 재요청 + 시뮬 중 화면 슬립 방지 + 지도 서버 재시작 안정화(NameError 수정) (v4.72)
+# trekker.py - Pythonista 3용 트래킹 + 고도/상승 동적 전환 + GPX 배지 클릭 이동 + 기록 시 진행방향 자동회전 + 나침반/십자선 2초 표시 + 거리 척도 + GPX 고도 프로파일 + 기록 중 5초 간격 진행방향 회전 + 회전 방향 보정 + GPS 노이즈 제거/곡선 보정 + 상단 방위 바 + 상단 UI 높이 축소 + 고도 그래프 위치 점 + 방위 바 갱신 안정화 + 십자선 이동 시 표시/굵게 + 기본 지도 Topo(온라인) + 고도 상세 패널 + 기록 중 30초 생존 신호음 + HTTP 서버 오류 방어 + 지도 캐시 개선/오프라인 미리받기 + 클립보드 삭제 & 2초 숨김 & 툴팁 1.5배 띄우기 + 날씨 조회 안정화/날씨 로그 + 방위 바 양끝 흐림 + 풍향/풍속 표시 및 상세 정보창 + 날씨 1분 갱신 + 잠금 중 기록/진행방향만 수행 + 지도 터치 십자선/잠금 중 절전 + 종료 시 지도 회전/원형 나침반 없음 + 기록 중 경량 모드(진행 방향 외 갱신 지연) + 빠른 회전 시 다운 방지 + 잠금 중 부채꼴 방향 UI 숨김 + GPX 따라가기 시뮬레이션(배속) + 상단 메뉴 '저장' 제거 + 시뮬레이션 중 거리·시간 표시 + 초기화 시 시뮬레이션 거리·시간 초기화 + 시뮬/기록 동시 실행 방지 + 토스트 잘림 수정, 시뮬 나침반=진행방향 위로 + 시뮬 나침반 해제 시 지도 방향 유지 + 시뮬 중 나침반 배율 유지 + 시뮬 중 상단 고도70:GPX명30 비율 + 풍향 화살표 풍속별 색상 + 좌표 아래 주소 표시 + 시뮬/나침반 회전 다운 방지 + 시뮬 속도 표시, 초기화 시 기록 경로 삭제 + 시뮬 종료 시 종료 위치 유지 + Esri 위성 지도에서 원형 나침반 흰색 + 터치 시에만 주소 5초 표시 + 시뮬 중 로드/초기화 비활성화 + 시뮬 속도 '-' 표시 + 시뮬 시작/종료 메세지 삭제 + 시뮬 중 고도 상세창 그래프에 시뮬 위치 점 표시 + 고도/날씨 상세창 반투명 + 상세창 농도 상향 + 시뮬 시작/종료 알림음 + 기록 경로 선 자홍색+흰 테두리 + 고도 상세창에 작은 고도 위치 점 표시 + 시뮬 역방향/위치 점프 + 십자선 위치부터 시뮬 시작 메뉴 + 시뮬 메뉴 구분선 + 잠금 중 위치 반영 5초 간격 + 종료·저장 결과를 상태 줄에 3초 표시 + 알림(토스트) 제거, 모든 메시지를 상태 줄에 3초 표시 + 시뮬 중 고도 상세창은 시뮬 위치만 표시 + 지도 서버 재접속·타일 자동 재요청 + 시뮬 중 화면 슬립 방지 + 지도 서버 재시작 안정화(NameError 수정) + 설정 파일(trek_config.json)을 trekker.py와 같은 폴더에서 읽음 + VWorld 키 읽기 보강·오류 표시 + 지도 선택 메뉴를 오른쪽 아이콘과 겹치지 않게 이동, 설정 파일 없음 안내 삭제 + 국토부 위성 원형 나침반 흰색, 지도 선택 목록 잘림 수정 + VWorld 없을 때 지도 선택 목록 정렬 원복 + 지도 이동·회전 시 지도 선택 창 닫기 (v4.78)
 import ui, location, math, os, time, datetime, json, urllib.request, threading, sys, socket
 import io, zlib, struct, shutil
 import dialogs, console, sound
@@ -22,7 +22,12 @@ except ImportError:
     motion = None
 
 SAVE_DIR = os.path.join(os.path.expanduser('~/Documents'), 'treks')
-CONFIG_PATH = os.path.join(SAVE_DIR, 'trek_config.json')
+try:
+    SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+except Exception:
+    SCRIPT_DIR = os.path.expanduser('~/Documents')
+CONFIG_PATH = os.path.join(SCRIPT_DIR, 'trek_config.json')          # trekker.py와 같은 폴더의 설정 파일
+OLD_CONFIG_PATH = os.path.join(SAVE_DIR, 'trek_config.json')        # 이전 위치(Documents/treks) - 새 위치에 없을 때만 읽음
 LOG_PATH = os.path.join(SAVE_DIR, 'trek_debug.txt')
 
 try:
@@ -96,17 +101,40 @@ SERVER_PORT = 0
 TOP_INSET = 44          # 상태바(노치) 높이
 
 # ---------------------------------------------------------------- 설정 파일 로드
+CONFIG_INFO = {'path': None, 'error': None}      # 설정 파일을 어디서 읽었는지 / 왜 못 읽었는지 (지도 선택창 안내에 사용)
+
 def load_config():
-    if os.path.exists(CONFIG_PATH):
+    cands = [CONFIG_PATH, OLD_CONFIG_PATH,
+             os.path.join(os.getcwd(), 'trek_config.json'),
+             os.path.join(os.path.expanduser('~/Documents'), 'trek_config.json')]
+    seen = set()
+    for path in cands:
+        if path in seen or not os.path.exists(path):
+            continue
+        seen.add(path)
         try:
-            with open(CONFIG_PATH, 'r', encoding='utf-8') as f:
-                return json.load(f)
-        except Exception:
-            pass
+            with open(path, 'r', encoding='utf-8-sig') as f:     # utf-8-sig: 메모장 등이 붙이는 BOM도 허용
+                data = json.load(f)
+            if isinstance(data, dict):
+                CONFIG_INFO['path'] = path
+                CONFIG_INFO['error'] = None
+                return data
+            CONFIG_INFO['error'] = '%s: { } 형태의 JSON이 아님' % os.path.basename(path)
+        except Exception as e:
+            CONFIG_INFO['error'] = '%s: %s' % (os.path.basename(path), e)
     return {}
 
+def find_vworld_key(cfg):
+    """설정에서 VWorld 키를 찾는다 (항목 이름의 대소문자·하이픈 차이, 키 앞뒤 공백·따옴표·줄바꿈 허용)."""
+    names = ('vworld_key', 'vworldkey', 'vworld', 'vworld_api_key', 'vworld_apikey')
+    for k, v in cfg.items():
+        if str(k).strip().lower().replace('-', '_') in names:
+            txt = ''.join(str(v).split())
+            return txt.strip('"\'\u201c\u201d\u2018\u2019')
+    return ''
+
 CONFIG = load_config()
-VWORLD_KEY = CONFIG.get('vworld_key', '').strip()
+VWORLD_KEY = find_vworld_key(CONFIG)
 
 try:
     MAG_DECLINATION = float(CONFIG.get('declination', -8.0))
@@ -314,11 +342,14 @@ MAP_HTML = """<!DOCTYPE html><html><head>
     -webkit-appearance: none; touch-action: manipulation; white-space: nowrap;
   }
   #layer-box {
-    margin-top: 6px; background: rgba(30,30,30,0.95); padding: 8px; border-radius: 8px;
+    margin-top: 6px;
+    background: rgba(30,30,30,0.95); padding: 8px; border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.5); display: none; flex-direction: column; gap: 6px;
-    max-height: 260px; overflow-y: auto; border: 1px solid rgba(255,255,255,0.15);
+    max-height: calc(100vh - 200px); overflow-y: auto; -webkit-overflow-scrolling: touch;   /* 목록 끝(국토부 위성 등)이 잘리지 않게 화면 높이에 맞춤 */
+    border: 1px solid rgba(255,255,255,0.15);
   }
   #layer-box.show { display: flex; }
+  body.has-vworld #layer-box { margin-right: 56px; }   /* VWorld 지도가 있어 목록이 길 때만 오른쪽 아이콘 열과 겹치지 않게 안쪽으로 */
   .layer-btn {
     background: #3a3a3c; color: white; border: none; padding: 10px 14px;
     font-size: 13px; font-weight: bold; border-radius: 6px; text-align: left; cursor: pointer;
@@ -732,6 +763,7 @@ var layers = {
 };
 
 if (vworldKey) {
+  document.body.classList.add('has-vworld');
   layers['vworld_base'] = tl('vworld_base/{z}/{x}/{y}.png', 19);
   layers['vworld_sat'] = tl('vworld_sat/{z}/{x}/{y}.jpeg', 19);
 }
@@ -748,6 +780,15 @@ function toggleLayerBox(e) {
   if (e) { e.preventDefault(); e.stopPropagation(); }
   document.getElementById('layer-box').classList.toggle('show');
 }
+// 손가락으로 지도를 움직이거나(한 손가락 이동) 회전·확대(두 손가락)하면 열려 있는 지도 선택 창을 닫음
+function closeLayerBox() {
+  var b = document.getElementById('layer-box');
+  if (b && b.classList.contains('show')) b.classList.remove('show');
+}
+map.on('dragstart', closeLayerBox);          // 사용자가 직접 끌 때만 발생 (시뮬레이션·자동 회전은 해당 없음)
+document.getElementById('map').addEventListener('touchmove', function(e) {
+  if (e.touches && e.touches.length >= 2 && !(e.target && e.target.closest && e.target.closest('#layer-container'))) closeLayerBox();
+}, {passive: true});
 
 var lastLat = 0, lastLon = 0;
 var lastTouchTime = 0;
@@ -1241,7 +1282,7 @@ function switchLayer(key, name, btn, e) {
   currentLayer = layers[key];
   currentLayerKey = key;
   currentLayer.addTo(map);
-  if (key === 'esri') document.body.classList.add('sat-map');      // Esri(위성): 원형 나침반 흰색
+  if (key === 'esri' || key === 'vworld_sat') document.body.classList.add('sat-map');      // Esri(위성): 원형 나침반 흰색
   else document.body.classList.remove('sat-map');
   
   var btns = document.getElementsByClassName('layer-btn');
@@ -2530,6 +2571,16 @@ def tile_cache_path(layer_id, z, x, y):
 def tile_ctype(layer_id):
     return 'image/jpeg' if TILE_LAYERS.get(layer_id, 'png') in ('jpg', 'jpeg') else 'image/png'
 
+def vworld_hint_html():
+    if CONFIG_INFO['error']:
+        why = '설정 파일을 읽지 못함 - ' + CONFIG_INFO['error']
+    elif not CONFIG_INFO['path']:
+        return ''                       # 설정 파일이 없는 것은 정상(VWorld를 안 쓰는 경우)이므로 안내하지 않음
+    else:
+        why = '%s 에 vworld_key 항목이 없거나 비어 있음' % os.path.basename(CONFIG_INFO['path'])
+    why = why.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+    return '<div style="padding:6px 12px;font-size:11px;color:#8e8e93;">국토부 지도(VWorld) 키를 못 읽었어요: ' + why + '</div>'
+
 def tile_remote_url(layer_id, z, x, y):
     if layer_id == 'opentopo':
         return 'https://tile.opentopomap.org/%s/%s/%s.png' % (z, x, y)
@@ -2589,6 +2640,20 @@ def write_cached_tile(path, data):
         dlog("타일 저장 실패: %s" % e)
         return False
 
+VWORLD_DIAG = {'msg': '', 'new': False, 'last': 0.0}
+
+def vworld_diag(layer_id, text):
+    """VWorld 타일 오류를 로그에 남기고 화면 상태 줄에 알린다 (60초에 한 번)."""
+    if not str(layer_id).startswith('vworld'):
+        return
+    now = time.time()
+    if now - VWORLD_DIAG['last'] < 60.0:
+        return
+    VWORLD_DIAG['last'] = now
+    dlog("VWorld 타일 오류(%s): %s" % (layer_id, text))
+    VWORLD_DIAG['msg'] = ('국토부 지도 오류: ' + text)[:46]
+    VWORLD_DIAG['new'] = True
+
 def fetch_tile_net(layer_id, z, x, y):
     """타일을 내려받는다. 반환: 이미지 데이터 / None(일시 실패 - 나중에 다시 시도) / False(서버에 타일이 없음 - 재시도 불필요)"""
     url = tile_remote_url(layer_id, z, x, y)
@@ -2603,9 +2668,17 @@ def fetch_tile_net(layer_id, z, x, y):
                     url, headers={'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) Trekker/4.36'})
                 with urllib.request.urlopen(req, timeout=TILE_NET_TIMEOUT) as resp:
                     data = resp.read()
-            return data if is_valid_tile(data) else None
+            if is_valid_tile(data):
+                return data
+            if str(layer_id).startswith('vworld'):
+                vworld_diag(layer_id, '응답 이상 %r' % (data[:60],))
+                if data[:1] in (b'<', b'{'):    # 오류 안내문(XML/JSON)이면 다시 시도해도 같음
+                    return False
+            return None
         except urllib.error.HTTPError as e:
             if e.code in (400, 401, 403, 404):
+                if e.code != 404:
+                    vworld_diag(layer_id, 'HTTP %d (키·사용 설정 확인)' % e.code)
                 return False
             time.sleep(0.4)
         except Exception:
@@ -2802,7 +2875,7 @@ class MapHandler(http.server.BaseHTTPRequestHandler):
         try:
             u = urllib.parse.urlparse(self.path)
             if u.path == '/':
-                vworld_btns = ''
+                vworld_btns = '' if VWORLD_KEY else vworld_hint_html()
                 if VWORLD_KEY:
                     vworld_btns = (
                         '<button class="layer-btn" id="btn-vworld_base" ontouchend="switchLayer(\'vworld_base\', \'국토부 일반\', this, event)" onclick="switchLayer(\'vworld_base\', \'국토부 일반\', this, event)"><span>국토부 (일반)</span><span class="badge">온라인</span></button>'
@@ -3845,6 +3918,9 @@ class TrekApp(ui.View):
             
             self.ensure_server()
             self.map_recover(status)
+            if VWORLD_DIAG['new']:
+                VWORLD_DIAG['new'] = False
+                run_on_main(lambda m=VWORLD_DIAG['msg']: self.show_status_msg(m, 6.0))
             
             for _ in range(50):
                 if self.closed:
